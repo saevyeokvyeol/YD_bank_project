@@ -1,21 +1,41 @@
 package dto;
 
+import java.util.List;
+
 public class Customer {
 	private String id;
 	private String password;
 	private String name;
-	private int accountNumber;
+	
+	private List<Account> accounts;
 	
 	public Customer() {}
 
-	public Customer(String id, String password, String name) {
+	public Customer(String id, String password) {
 		this.id = id;
 		this.password = password;
+	}
+
+	public Customer(String id, String password, String name) {
+		this(id, password);
 		this.name = name;
 	}
 
-	public Customer(String id, String password, String name, int accountNumber) {
-		this(id, password, name);
-		this.accountNumber = accountNumber;
+	public String getId() {
+		return id;
 	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public List<Account> getAccounts() {
+		return accounts;
+	}
+	
+	
 }

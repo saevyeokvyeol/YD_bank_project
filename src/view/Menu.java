@@ -2,29 +2,46 @@ package view;
 
 import java.util.Scanner;
 
+import controller.CustomerController;
+import dto.Customer;
 import service.Bank;
 import service.BankImpl;
 
 public class Menu {
 	private Scanner scanner = new Scanner(System.in);
-	public Bank bank = new BankImpl();
+	private Bank bank = new BankImpl();
+	private CustomerController customerController = new CustomerController();
 	
 	public void mainMenu() {
-		System.out.println("\n-----------------------------------");
-		System.out.println("1. 로그인 | 2. 회원가입 | | 0. 종료");
-		System.out.println("-----------------------------------");
-
-		System.out.print("메뉴 선택 > ");
-
-		int select = scanner.nextInt();
-		
-		switch (select) {
-		case 1:
-			break;
-		case 2:
-			break;
-		case 0:
-			this.bankExit();
+		while(true) {
+			System.out.println("\n-----------------------------------");
+			System.out.println("1. 로그인 | 2. 회원가입 | 0. 종료");
+			System.out.println("-----------------------------------");
+			
+			System.out.print("메뉴 선택 > ");
+			
+			int select = Integer.parseInt(scanner.nextLine());
+			
+			switch (select) {
+			case 1:
+				break;
+			case 2:
+				System.out.print("\n아이디 입력 > ");
+				String id = scanner.nextLine();
+				
+				System.out.print("비밀번호 입력 > ");
+				String password = scanner.nextLine();
+				
+				System.out.print("비밀번호 확인 > ");
+				String checkPwd = scanner.nextLine();
+				
+				System.out.print("이름 입력 > ");
+				String name = scanner.nextLine();
+				customerController.signup(new Customer(id, password, name), checkPwd);
+				break;
+			case 0:
+				this.bankExit();
+			}
 		}
 	}
 	
