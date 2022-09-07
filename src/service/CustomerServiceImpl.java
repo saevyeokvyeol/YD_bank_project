@@ -8,36 +8,41 @@ import exception.DuplicationException;
 
 public class CustomerServiceImpl implements CustomerService {
 	private CustomerDao customerDao = new CustomerDaoImpl();
-	
+
 	/**
-	 * È¸¿ø°¡ÀÔ
-	 * : È¸¿ø Á¤º¸¸¦ ¹Ş¾Æ È¸¿ø ¸®½ºÆ®¿¡ ÀúÀå
+	 * íšŒì›ê°€ì…
+	 * : íšŒì› ì •ë³´ë¥¼ ë°›ì•„ íšŒì› ë¦¬ìŠ¤íŠ¸ì— ì €ì¥
 	 * @param: Customer, String checkPwd
 	 * @return: Customer
 	 * */
 	@Override
 	public Customer signup(Customer customer, String checkPwd) throws DuplicationException, DiscrepancyException {
 		if (customerDao.findById(customer.getId()) != null) {
-			throw new DuplicationException("¾ÆÀÌµğ°¡ Áßº¹µÇ¾ú½À´Ï´Ù.\n´Ù¸¥ ¾ÆÀÌµğ¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä.");
+			throw new DuplicationException("ì•„ì´ë””ê°€ ì¤‘ë³µë˜ì—ˆìŠµë‹ˆë‹¤.\në‹¤ë¥¸ ì•„ì´ë””ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”.");
 		}
 		
 		if (!customer.getPassword().equals(checkPwd)) {
-			throw new DiscrepancyException("ºñ¹Ğ¹øÈ£¿Í ºñ¹Ğ¹øÈ£ È®ÀÎÀÌ ÀÏÄ¡ÇÏÁö ¾Ê½À´Ï´Ù.\n´Ù½Ã ÀÔ·ÂÇØÁÖ¼¼¿ä.");
+			throw new DiscrepancyException("ë¹„ë°€ë²ˆí˜¸ì™€ ë¹„ë°€ë²ˆí˜¸ í™•ì¸ì´ ì¼ì¹˜í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.\në‹¤ì‹œ ì…ë ¥í•´ì£¼ì„¸ìš”.");
 		}
 		
 		return customerDao.signup(customer);
 	}
 
 	/**
-	 * ·Î±×ÀÎ
-	 * : ÀÔ·Â¹ŞÀº ·Î±×ÀÎ Á¤º¸¸¦ È¸¿ø Á¤º¸¿Í ºñ±³ÇØ ¸ÂÀ» °æ¿ì ·Î±×ÀÎ
+	 * ë¡œê·¸ì¸
+	 * : ì…ë ¥ë°›ì€ ë¡œê·¸ì¸ ì •ë³´ë¥¼ íšŒì› ì •ë³´ì™€ ë¹„êµí•´ ë§ì„ ê²½ìš° ë¡œê·¸ì¸
 	 * @param: Customer
 	 * @return: Customer
 	 * */
 	@Override
-	public Customer login(Customer customer) {
-		// TODO Auto-generated method stub
-		return null;
+	public Customer login(Customer customer) throws DiscrepancyException {
+		Customer dbCustomer = customerDao.findById(customer.getId());
+		
+		if(dbCustomer == null || !dbCustomer.getPassword().equals(customer.getPassword())) {
+			throw new DiscrepancyException("ì•„ì´ë”” í˜¹ì€ ë¹„ë°€ë²ˆí˜¸ê°€ ì˜¬ë°”ë¥´ì§€ ì•ŠìŠµë‹ˆë‹¤.");
+		}
+		
+		return dbCustomer;
 	}
 
 }

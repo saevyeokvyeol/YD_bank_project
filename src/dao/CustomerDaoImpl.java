@@ -4,13 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dto.Customer;
+import service.CustomerService;
 
 public class CustomerDaoImpl implements CustomerDao {
 	private List<Customer> customers = new ArrayList<Customer>();
 
 	/**
-	 * È¸¿ø°¡ÀÔ
-	 * : È¸¿ø Á¤º¸¸¦ ¹Ş¾Æ È¸¿ø ¸®½ºÆ®¿¡ ÀúÀå
+	 * íšŒì›ê°€ì…
+	 * : íšŒì› ì •ë³´ë¥¼ ë°›ì•„ íšŒì› ë¦¬ìŠ¤íŠ¸ì— ì €ì¥
 	 * @param: Customer
 	 * @return: Customer
 	 * */
@@ -21,17 +22,11 @@ public class CustomerDaoImpl implements CustomerDao {
 	}
 
 	/**
-	 * ·Î±×ÀÎ
-	 * : ÀÔ·Â¹ŞÀº ·Î±×ÀÎ Á¤º¸¸¦ È¸¿ø Á¤º¸¿Í ºñ±³ÇØ ¸ÂÀ» °æ¿ì ·Î±×ÀÎ
-	 * @param: Customer
+	 * ì•„ì´ë”” ì°¾ê¸°
+	 * : íšŒì› ì •ë³´ì— ì…ë ¥ë°›ì€ ì•„ì´ë””ì™€ ì¼ì¹˜í•˜ëŠ” ì •ë³´ê°€ ìˆì„ ê²½ìš° ë¦¬í„´
+	 * @param: String id
 	 * @return: Customer
 	 * */
-	@Override
-	public Customer login(Customer customer) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	@Override
 	public Customer findById(String id) {
 		Customer customer = null;

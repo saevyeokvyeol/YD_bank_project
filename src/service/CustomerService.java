@@ -6,18 +6,18 @@ import exception.DuplicationException;
 
 public interface CustomerService {
 	/**
-	 * È¸¿ø°¡ÀÔ
-	 * : È¸¿ø Á¤º¸¸¦ ¹Ş¾Æ È¸¿ø ¸®½ºÆ®¿¡ ÀúÀå
+	 * íšŒì›ê°€ì…
+	 * : íšŒì› ì •ë³´ë¥¼ ë°›ì•„ íšŒì› ë¦¬ìŠ¤íŠ¸ì— ì €ì¥
 	 * @param: Customer, String checkPwd
 	 * @return: Customer
 	 * */
 	public Customer signup(Customer customer, String checkPwd) throws DuplicationException, DiscrepancyException;
 
 	/**
-	 * ·Î±×ÀÎ
-	 * : ÀÔ·Â¹ŞÀº ·Î±×ÀÎ Á¤º¸¸¦ È¸¿ø Á¤º¸¿Í ºñ±³ÇØ ¸ÂÀ» °æ¿ì ·Î±×ÀÎ
+	 * ë¡œê·¸ì¸
+	 * : ì…ë ¥ë°›ì€ ë¡œê·¸ì¸ ì •ë³´ë¥¼ íšŒì› ì •ë³´ì™€ ë¹„êµí•´ ë§ì„ ê²½ìš° ë¡œê·¸ì¸
 	 * @param: Customer
 	 * @return: Customer
 	 * */
-	public Customer login(Customer customer);
+	public Customer login(Customer customer) throws DiscrepancyException;
 }

@@ -4,24 +4,16 @@ import dto.Customer;
 
 public interface CustomerDao {
 	/**
-	 * È¸¿ø°¡ÀÔ
-	 * : È¸¿ø Á¤º¸¸¦ ¹Ş¾Æ È¸¿ø ¸®½ºÆ®¿¡ ÀúÀå
+	 * íšŒì›ê°€ì…
+	 * : íšŒì› ì •ë³´ë¥¼ ë°›ì•„ íšŒì› ë¦¬ìŠ¤íŠ¸ì— ì €ì¥
 	 * @param: Customer
 	 * @return: Customer
 	 * */
 	public Customer signup(Customer customer);
 
 	/**
-	 * ·Î±×ÀÎ
-	 * : ÀÔ·Â¹ŞÀº ·Î±×ÀÎ Á¤º¸¸¦ È¸¿ø Á¤º¸¿Í ºñ±³ÇØ ¸ÂÀ» °æ¿ì ·Î±×ÀÎ
-	 * @param: Customer
-	 * @return: Customer
-	 * */
-	public Customer login(Customer customer);
-
-	/**
-	 * ¾ÆÀÌµğ Ã£±â
-	 * : È¸¿ø Á¤º¸¿¡ ÀÔ·Â¹ŞÀº ¾ÆÀÌµğ¿Í ÀÏÄ¡ÇÏ´Â Á¤º¸°¡ ÀÖÀ» °æ¿ì ¸®ÅÏ
+	 * ì•„ì´ë”” ì°¾ê¸°
+	 * : íšŒì› ì •ë³´ì— ì…ë ¥ë°›ì€ ì•„ì´ë””ì™€ ì¼ì¹˜í•˜ëŠ” ì •ë³´ê°€ ìˆì„ ê²½ìš° ë¦¬í„´
 	 * @param: String id
 	 * @return: Customer
 	 * */
