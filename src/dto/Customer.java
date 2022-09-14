@@ -1,11 +1,14 @@
 package dto;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class Customer {
 	private String id;
 	private String password;
 	private String name;
+	private LocalDateTime signupDate;
+	private LocalDateTime UpdateDate;
 	
 	private List<Account> accounts;
 	
@@ -37,5 +40,7 @@ public class Customer {
 		return accounts;
 	}
 	
-	
+	public void changePassword(String password) {
+		this.password = password;
+	}
 }
