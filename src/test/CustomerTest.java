@@ -6,9 +6,12 @@ import session.Session;
 
 public class CustomerTest {
 	private CustomerController controller = new CustomerController();
+	private TestDelete delete = new TestDelete();
 	
 	public void signupTest() {
-		Customer customer = new Customer("yuda", "1234", "김유다");
+		controller.findAll();
+		
+		Customer customer = new Customer("rang", "8080", "김파랑");
 		
 		System.out.println("* 성공");
 		controller.signup(customer, customer.getPassword());
@@ -16,19 +19,20 @@ public class CustomerTest {
 		System.out.println("\n* 실패: 아이디 중복");
 		controller.signup(customer, customer.getPassword());
 		
-		customer = new Customer("yuhyun", "1234", "김유현");
+		customer = new Customer("gang", "8989", "김빨강");
 
 		System.out.println("\n* 실패: 비밀번호 불일치");
-		controller.signup(customer, "1224");
+		controller.signup(customer, "8888");
 
 		System.out.println("\n* 성공");
 		controller.signup(customer, customer.getPassword());
+		
+		controller.findAll();
+		
+		delete.delete("delete from customer where id in ('rang', 'gang')");
 	}
 	
 	public void loginTest() {
-		Customer customer = new Customer("yuda", "1234", "김유다");
-		controller.signup(customer, customer.getPassword());
-		
 		Session session = Session.getInstance();
 		
 		System.out.println("\n* 실패: 아이디 불일치");
@@ -48,7 +52,7 @@ public class CustomerTest {
 		}
 
 		System.out.println("\n* 성공");
-		controller.login(customer);
+		controller.login(new Customer("yuda", "1234"));
 		loginUser = (Customer)session.getAttribute("loginUser");
 		if (loginUser != null) {
 			System.out.println(loginUser.getName() + " 로그인 성공");
@@ -57,7 +61,7 @@ public class CustomerTest {
 	
 	public static void main(String[] args) {
 		CustomerTest test = new CustomerTest();
-//		test.signupTest();
-		test.loginTest();
+		test.signupTest();
+//		test.loginTest();
 	}
 }

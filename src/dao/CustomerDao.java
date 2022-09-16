@@ -1,5 +1,8 @@
 package dao;
 
+import java.sql.SQLException;
+import java.util.List;
+
 import dto.Customer;
 
 public interface CustomerDao {
@@ -9,7 +12,7 @@ public interface CustomerDao {
 	 * @param: Customer
 	 * @return: Customer
 	 * */
-	public Customer signup(Customer customer);
+	public Customer signup(Customer customer) throws SQLException;
 
 	/**
 	 * 아이디 찾기
@@ -17,5 +20,17 @@ public interface CustomerDao {
 	 * @param: String id
 	 * @return: Customer
 	 * */
-	public Customer findById(String id);
+	public Customer findById(String id) throws SQLException;
+	
+	/**
+	 * 모든 회원 검색
+	 * : 회원 테이블에 있는 모든 회원을 가져옴
+	 * @return: List<Customer>
+	 * */
+	public List<Customer> findAll() throws SQLException;
+	
+	/**
+	 * 등급별 회원 검색
+	 * */
+	public List<Customer> 
 }

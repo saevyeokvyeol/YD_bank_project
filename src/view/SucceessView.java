@@ -1,9 +1,19 @@
 package view;
 
+import java.util.List;
+
 import dto.Customer;
 
 public class SucceessView {
 	public static void printSignup(Customer customer) {
-		System.out.println("\n" + customer.getName() + "´Ô, °¡ÀÔÀÌ ¿Ï·áµÇ¾ú½À´Ï´Ù.\n·Î±×ÀÎ ÈÄ ¼­ºñ½º¸¦ ÀÌ¿ëÇØÁÖ¼¼¿ä.");
+		System.out.println("\n" + customer.getName() + "ë‹˜, ê°€ì…ì´ ì™„ë£Œë˜ì—ˆìŠµë‹ˆë‹¤.\në¡œê·¸ì¸ í›„ ì„œë¹„ìŠ¤ë¥¼ ì´ìš©í•´ì£¼ì„¸ìš”.");
+	}
+	
+	public static void printCustomers(List<Customer> customers) {
+		System.out.println("\nì•„ì´ë””\tì´ë¦„\tê°€ì…ì¼");
+		for (Customer c : customers) {
+			System.out.println(c.getId() + "\t" + c.getName() + "\t" + c.getSignupDate());
+		}
+		
 	}
 }

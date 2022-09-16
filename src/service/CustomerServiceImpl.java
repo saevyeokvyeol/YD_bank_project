@@ -1,5 +1,8 @@
 package service;
 
+import java.sql.SQLException;
+import java.util.List;
+
 import dao.CustomerDao;
 import dao.CustomerDaoImpl;
 import dto.Customer;
@@ -14,9 +17,10 @@ public class CustomerServiceImpl implements CustomerService {
 	 * : 회원 정보를 받아 회원 리스트에 저장
 	 * @param: Customer, String checkPwd
 	 * @return: Customer
+	 * @throws SQLException 
 	 * */
 	@Override
-	public Customer signup(Customer customer, String checkPwd) throws DuplicationException, DiscrepancyException {
+	public Customer signup(Customer customer, String checkPwd) throws DuplicationException, DiscrepancyException, SQLException {
 		if (customerDao.findById(customer.getId()) != null) {
 			throw new DuplicationException("아이디가 중복되었습니다.\n다른 아이디를 입력해주세요.");
 		}
@@ -33,9 +37,10 @@ public class CustomerServiceImpl implements CustomerService {
 	 * : 입력받은 로그인 정보를 회원 정보와 비교해 맞을 경우 로그인
 	 * @param: Customer
 	 * @return: Customer
+	 * @throws SQLException 
 	 * */
 	@Override
-	public Customer login(Customer customer) throws DiscrepancyException {
+	public Customer login(Customer customer) throws DiscrepancyException, SQLException {
 		Customer dbCustomer = customerDao.findById(customer.getId());
 		
 		if(dbCustomer == null || !dbCustomer.getPassword().equals(customer.getPassword())) {
@@ -44,5 +49,20 @@ public class CustomerServiceImpl implements CustomerService {
 		
 		return dbCustomer;
 	}
+	
+
+	
+	/**
+	 * 모든 회원 검색
+	 * : 회원 테이블에 있는 모든 회원을 가져옴
+	 * @return: List<Customer>
+	 * */
+	@Override
+	public List<Customer> findAll() throws SQLException {
+		List<Customer> customers = customerDao.findAll();
+		return customers;
+	}
+	
+	
 
 }

@@ -1,5 +1,8 @@
 package service;
 
+import java.sql.SQLException;
+import java.util.List;
+
 import dto.Customer;
 import exception.DiscrepancyException;
 import exception.DuplicationException;
@@ -11,7 +14,7 @@ public interface CustomerService {
 	 * @param: Customer, String checkPwd
 	 * @return: Customer
 	 * */
-	public Customer signup(Customer customer, String checkPwd) throws DuplicationException, DiscrepancyException;
+	public Customer signup(Customer customer, String checkPwd) throws DuplicationException, DiscrepancyException, SQLException;
 
 	/**
 	 * 로그인
@@ -19,5 +22,12 @@ public interface CustomerService {
 	 * @param: Customer
 	 * @return: Customer
 	 * */
-	public Customer login(Customer customer) throws DiscrepancyException;
+	public Customer login(Customer customer) throws DiscrepancyException, SQLException;
+	
+	/**
+	 * 모든 회원 검색
+	 * : 회원 테이블에 있는 모든 회원을 가져옴
+	 * @return: List<Customer>
+	 * */
+	public List<Customer> findAll() throws SQLException;
 }

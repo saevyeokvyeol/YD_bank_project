@@ -1,5 +1,7 @@
 package controller;
 
+import java.util.List;
+
 import dto.Customer;
 import exception.DiscrepancyException;
 import exception.DuplicationException;
@@ -19,10 +21,7 @@ public class CustomerController {
 		try {
 			Customer signupedCustomer = customerService.signup(customer, checkPwd);
 			SucceessView.printSignup(signupedCustomer);
-		} catch (DuplicationException e) {
-			FailView.printErrorMessage(e);
-//			e.printStackTrace();
-		} catch (DiscrepancyException e) {
+		} catch (Exception e) {
 			FailView.printErrorMessage(e);
 //			e.printStackTrace();
 		}
@@ -34,7 +33,7 @@ public class CustomerController {
 			
 			session.setAttribute("loginUser", loginUser);
 			new Menu().userMenu();
-		} catch (DiscrepancyException e) {
+		} catch (Exception e) {
 			FailView.printErrorMessage(e);
 //			e.printStackTrace();
 		}
@@ -42,5 +41,14 @@ public class CustomerController {
 	
 	public void logout() {
 		session.removeAttribute("loginUser");
+	}
+	
+	public void findAll() {
+		try {
+			List<Customer> customers = customerService.findAll();
+			SucceessView.printCustomers(customers);
+		} catch (Exception e) {
+			FailView.printErrorMessage(e);
+		}
 	}
 }
