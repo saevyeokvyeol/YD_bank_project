@@ -6,36 +6,45 @@ import controller.CustomerController;
 import dto.Customer;
 import service.Bank;
 import service.BankImpl;
+import session.Session;
 
 public class Menu {
 	private Scanner scanner = new Scanner(System.in);
 	private Bank bank = new BankImpl();
 	private CustomerController customerController = new CustomerController();
+	private boolean run = true;
+	private Session session = Session.getInstance();
 	
 	public void mainMenu() {
-		while(true) {
+		while(run) {
 			System.out.println("\n-----------------------------------");
-			System.out.println("1. ·Î±×ÀÎ | 2. È¸¿ø°¡ÀÔ | 0. Á¾·á");
+			System.out.println(" 1. ë¡œê·¸ì¸ | 2. íšŒì›ê°€ì… | 0. ì¢…ë£Œ");
 			System.out.println("-----------------------------------");
-			
-			System.out.print("¸Ş´º ¼±ÅÃ > ");
+
+			System.out.print("ë©”ë‰´ ì„ íƒ > ");
 			
 			int select = Integer.parseInt(scanner.nextLine());
 			
 			switch (select) {
 			case 1:
+				System.out.print("\nì•„ì´ë”” ì…ë ¥ > ");
+				String loginId = scanner.nextLine();
+
+				System.out.print("ë¹„ë°€ë²ˆí˜¸ ì…ë ¥ > ");
+				String loginPwd = scanner.nextLine();
+				customerController.login(new Customer(loginId, loginPwd));
 				break;
 			case 2:
-				System.out.print("\n¾ÆÀÌµğ ÀÔ·Â > ");
+				System.out.print("\nì•„ì´ë”” ì…ë ¥ > ");
 				String id = scanner.nextLine();
 				
-				System.out.print("ºñ¹Ğ¹øÈ£ ÀÔ·Â > ");
+				System.out.print("ë¹„ë°€ë²ˆí˜¸ ì…ë ¥ > ");
 				String password = scanner.nextLine();
 				
-				System.out.print("ºñ¹Ğ¹øÈ£ È®ÀÎ > ");
+				System.out.print("ë¹„ë°€ë²ˆí˜¸ í™•ì¸ > ");
 				String checkPwd = scanner.nextLine();
 				
-				System.out.print("ÀÌ¸§ ÀÔ·Â > ");
+				System.out.print("ì´ë¦„ ì…ë ¥ > ");
 				String name = scanner.nextLine();
 				customerController.signup(new Customer(id, password, name), checkPwd);
 				break;
@@ -46,12 +55,41 @@ public class Menu {
 	}
 	
 	public void userMenu() {
-		boolean run = true;
 		while (run) {
-			System.out.println("\n----------------------------------------------------------------");
-			System.out.println("1. ÀÔ±İÇÏ±â | 2. Ãâ±İÇÏ±â | 3. ÀÜ°í È®ÀÎ | 9. ·Î±×¾Æ¿ô | 0. Á¾·á");
-			System.out.println("----------------------------------------------------------------");
-			System.out.print("¸Ş´º ¼±ÅÃ > ");
+			System.out.println("\n---------------------------------------------------------------------------");
+			System.out.println(" 1. ê±°ë˜í•˜ê¸° | 2. ë‚´ ì •ë³´ í™•ì¸ | 3. ì‹ ê·œ ê³„ì¢Œ ìƒì„± | 9. ë¡œê·¸ì•„ì›ƒ | 0. ì¢…ë£Œ");
+			System.out.println("---------------------------------------------------------------------------");
+			System.out.print("ë©”ë‰´ ì„ íƒ > ");
+
+			int select = scanner.nextInt();
+			
+			switch (select) {
+			case 1:
+				transactionMenu();
+				break;
+			case 2:
+				bank.withdraw();
+				break;
+			case 3:
+				bank.nowBalance();
+				break;
+			case 4:
+				break;
+			case 9:
+				customerController.logout();
+				return;
+			case 0:
+				this.bankExit();
+			}
+		}
+	}
+	
+	public void transactionMenu() {
+		while (run) {
+			System.out.println("\n-------------------------------------------------------------------");
+			System.out.println(" 1. ì…ê¸ˆí•˜ê¸° | 2. ì¶œê¸ˆí•˜ê¸° | 3. ì”ê³  í™•ì¸ | 9. ë’¤ë¡œ ê°€ê¸° | 0. ì¢…ë£Œ");
+			System.out.println("-------------------------------------------------------------------");
+			System.out.print("ë©”ë‰´ ì„ íƒ > ");
 
 			int select = scanner.nextInt();
 			
@@ -65,15 +103,27 @@ public class Menu {
 			case 3:
 				bank.nowBalance();
 				break;
+			case 9:
+				return;
 			case 0:
 				this.bankExit();
-				run = false;
 			}
 		}
 	}
 	
 	public void bankExit() {
-		System.out.println("YD¹ğÅ©¸¦ Á¾·áÇÕ´Ï´Ù.");
-		System.out.println("ÀÌ¿ëÇØÁÖ¼Å¼­ °¨»çÇÕ´Ï´Ù");
+		this.run = false;
+		System.out.println("\nYDë±…í¬ë¥¼ ì¢…ë£Œí•©ë‹ˆë‹¤.");
+		System.out.println("ì´ìš©í•´ì£¼ì…”ì„œ ê°ì‚¬í•©ë‹ˆë‹¤.");
+		System.out.println("\n`8.`8888.      ,8' 8 888888888o.                8 888888888o            .8.          b.             8 8 8888     ,88' \r\n"
+						+ " `8.`8888.    ,8'  8 8888    `^888.             8 8888    `88.         .888.         888o.          8 8 8888    ,88'  \r\n"
+						+ "  `8.`8888.  ,8'   8 8888        `88.           8 8888     `88        :88888.        Y88888o.       8 8 8888   ,88'   \r\n"
+						+ "   `8.`8888.,8'    8 8888         `88           8 8888     ,88       . `88888.       .`Y888888o.    8 8 8888  ,88'    \r\n"
+						+ "    `8.`88888'     8 8888          88           8 8888.   ,88'      .8. `88888.      8o. `Y888888o. 8 8 8888 ,88'     \r\n"
+						+ "     `8. 8888      8 8888          88           8 8888888888       .8`8. `88888.     8`Y8o. `Y88888o8 8 8888 88'      \r\n"
+						+ "      `8 8888      8 8888         ,88           8 8888    `88.    .8' `8. `88888.    8   `Y8o. `Y8888 8 888888<       \r\n"
+						+ "       8 8888      8 8888        ,88'           8 8888      88   .8'   `8. `88888.   8      `Y8o. `Y8 8 8888 `Y8.     \r\n"
+						+ "       8 8888      8 8888    ,o88P'             8 8888    ,88'  .888888888. `88888.  8         `Y8o.` 8 8888   `Y8.   \r\n"
+						+ "       8 8888      8 888888888P'                8 888888888P   .8'       `8. `88888. 8            `Yo 8 8888     `Y8. ");
 	}
 }
