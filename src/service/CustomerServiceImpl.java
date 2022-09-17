@@ -9,6 +9,7 @@ import dto.Customer;
 import dto.Grade;
 import exception.DiscrepancyException;
 import exception.DuplicationException;
+import exception.NotExistRecodeException;
 
 public class CustomerServiceImpl implements CustomerService {
 	private CustomerDao customerDao = new CustomerDaoImpl();
@@ -63,6 +64,23 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 
 	/**
+	 * 아이디로 회원 정보 검색
+	 * : 회원 아이디로 회원 정보 검색
+	 * @param: String id
+	 * @return: Customer
+	 * */
+	public Customer customerInfo(String id) throws SQLException, NotExistRecodeException {
+		Customer customer = customerDao.findById(id);
+		if (customer == null) throw new NotExistRecodeException("회원 정보 검색에 오류가 발생해 관련 정보를 가져올 수 없습니다.");
+		
+		Grade grade = customerDao.findByGradeId(customer.getGradeId());
+		if (grade == null) throw new NotExistRecodeException("등급 산정에 오류가 발생해 관련 정보를 가져올 수 없습니다.");
+		customer.setGrade(grade);
+		
+		return customer;
+	}
+
+	/**
 	 * 키워드로 회원 검색
 	 * : 회원 테이블에 있는 회원 중 키워드 검색에 걸리는 회원을 가져옴
 	 * @param: String field(검색 컬럼), String keyword(검색 키워드)
@@ -81,7 +99,7 @@ public class CustomerServiceImpl implements CustomerService {
 	 * @return: Customer
 	 * */
 	@Override
-	public Customer findByAccountId(int accountId) throws SQLException {
+	public Customer findByAccountId(int accountId) throws SQLException, NotExistRecodeException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -94,18 +112,6 @@ public class CustomerServiceImpl implements CustomerService {
 	 * */
 	@Override
 	public List<Customer> findByGrade(int grade) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	/**
-	 * 등급 아이디로 회원 등급 검색
-	 * : 등급 테이블에서 특정 등급 가져오기
-	 * @param: int gradeId
-	 * @return: Grade
-	 * */
-	@Override
-	public Grade findByGradeId(int gradeId) throws SQLException {
 		// TODO Auto-generated method stub
 		return null;
 	}

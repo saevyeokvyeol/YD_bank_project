@@ -71,7 +71,7 @@ public class Menu {
 				transactionMenu();
 				break;
 			case 2:
-				bank.withdraw();
+				customerController.customerInfo();
 				break;
 			case 3:
 				bank.nowBalance();

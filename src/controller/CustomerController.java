@@ -51,4 +51,25 @@ public class CustomerController {
 			FailView.printErrorMessage(e);
 		}
 	}
+	
+	public void customerInfo() {
+		try {
+			Customer sessionCustomer = (Customer)session.getAttribute("loginUser");
+			Customer customer = customerService.customerInfo(sessionCustomer.getId());
+			SucceessView.printCustomerInfo(customer);
+		} catch (Exception e) {
+//			e.printStackTrace();
+			FailView.printErrorMessage(e);
+		}
+	}
+	
+	public void customerInfo(String id) {
+		try {
+			Customer customer = customerService.customerInfo(id);
+			SucceessView.printCustomerInfo(customer);
+		} catch (Exception e) {
+//			e.printStackTrace();
+			FailView.printErrorMessage(e);
+		}
+	}
 }

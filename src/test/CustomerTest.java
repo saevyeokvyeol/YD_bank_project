@@ -59,9 +59,25 @@ public class CustomerTest {
 		}
 	}
 	
+	public void customerIntoTest() {
+		System.out.println("실패: 없는 아이디");
+		controller.customerInfo("yyyy");
+		
+		System.out.println("---------------");
+		
+		System.out.println("성공: 있는 아이디, Prestige 등급");
+		controller.customerInfo("yuda");
+		
+		System.out.println("---------------");
+		
+		System.out.println("성공: 있는 아이디, Honor 등급");
+		controller.customerInfo("mina");
+	}
+	
 	public static void main(String[] args) {
 		CustomerTest test = new CustomerTest();
 //		test.signupTest();
-		test.loginTest();
+//		test.loginTest();
+		test.customerIntoTest();
 	}
 }

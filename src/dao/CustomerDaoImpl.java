@@ -76,7 +76,7 @@ public class CustomerDaoImpl implements CustomerDao {
 		} finally {
 			DbUtil.close(con, ps, rs);
 		}
-		return customer;     
+		return customer;
 	}
 
 	/**
@@ -151,7 +151,27 @@ public class CustomerDaoImpl implements CustomerDao {
 	 * */
 	@Override
 	public Grade findByGradeId(int gradeId) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		String sql = profile.getProperty("customer.findByGradeId");
+		Grade grade = null;
+		
+		try {
+			con = DbUtil.getConnection();
+			
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, gradeId);
+			
+			rs = ps.executeQuery();
+			
+			if (rs.next()) {
+				grade = new Grade(rs.getInt(1), rs.getString(2), rs.getLong(3), rs.getLong(4), rs.getInt(5));
+			}
+		} finally {
+			DbUtil.close(con, ps, rs);
+		}
+		return grade;
 	};
 }
