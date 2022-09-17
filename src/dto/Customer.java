@@ -7,6 +7,7 @@ public class Customer {
 	private String password;
 	private String name;
 	private String tel;
+	private int gradeId;
 	private String signupDate;
 	private String UpdateDate;
 	private Long totalBalance;
@@ -28,8 +29,9 @@ public class Customer {
 		this.tel = tel;
 	}
 
-	public Customer(String id, String password, String name, String tel, String signupDate, String updateDate, Long totalBalance) {
+	public Customer(String id, String password, String name, String tel, int gradeId, String signupDate, String updateDate, Long totalBalance) {
 		this(id, password, name, tel);
+		this.gradeId = gradeId;
 		this.signupDate = signupDate;
 		this.UpdateDate = updateDate;
 		this.totalBalance = totalBalance;
@@ -50,6 +52,10 @@ public class Customer {
 	public String getTel() {
 		return tel;
 	}
+	
+	public int getGradeId() {
+		return gradeId;
+	}
 
 	public String getSignupDate() {
 		return signupDate;
@@ -66,16 +72,24 @@ public class Customer {
 	public Grade getGrade() {
 		return grade;
 	}
+	
+	public void setGrade(Grade grade) {
+		this.grade = grade;
+	}
 
 	public List<Account> getAccounts() {
 		return accounts;
+	}
+
+	public void setAccounts(List<Account> accounts) {
+		this.accounts = accounts;
 	}
 	
 	public List<Transaction> getTransactions() {
 		return transactions;
 	}
-
-	public void changePassword(String password) {
-		this.password = password;
+	
+	public void setTransactions(List<Account> accounts) {
+		this.accounts = accounts;
 	}
 }

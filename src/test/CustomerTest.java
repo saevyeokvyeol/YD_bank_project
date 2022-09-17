@@ -11,7 +11,7 @@ public class CustomerTest {
 	public void signupTest() {
 		controller.findAll();
 		
-		Customer customer = new Customer("rang", "8080", "김파랑");
+		Customer customer = new Customer("rang", "8080", "김파랑", "01000000000");
 		
 		System.out.println("* 성공");
 		controller.signup(customer, customer.getPassword());
@@ -19,7 +19,7 @@ public class CustomerTest {
 		System.out.println("\n* 실패: 아이디 중복");
 		controller.signup(customer, customer.getPassword());
 		
-		customer = new Customer("gang", "8989", "김빨강");
+		customer = new Customer("gang", "8989", "김빨강", "01011111111");
 
 		System.out.println("\n* 실패: 비밀번호 불일치");
 		controller.signup(customer, "8888");
@@ -61,7 +61,7 @@ public class CustomerTest {
 	
 	public static void main(String[] args) {
 		CustomerTest test = new CustomerTest();
-		test.signupTest();
-//		test.loginTest();
+//		test.signupTest();
+		test.loginTest();
 	}
 }

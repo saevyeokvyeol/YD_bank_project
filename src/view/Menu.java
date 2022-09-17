@@ -46,7 +46,10 @@ public class Menu {
 				
 				System.out.print("이름 입력 > ");
 				String name = scanner.nextLine();
-				customerController.signup(new Customer(id, password, name), checkPwd);
+				
+				System.out.print("전화번호 입력 > ");
+				String tel = scanner.nextLine();
+				customerController.signup(new Customer(id, password, name, tel), checkPwd);
 				break;
 			case 0:
 				this.bankExit();
@@ -57,7 +60,7 @@ public class Menu {
 	public void userMenu() {
 		while (run) {
 			System.out.println("\n---------------------------------------------------------------------------");
-			System.out.println(" 1. 거래하기 | 2. 내 정보 확인 | 3. 신규 계좌 생성 | 9. 로그아웃 | 0. 종료");
+			System.out.println(" 1. 거래하기 | 2. 내 정보 확인 | 3. 내 계좌 확인 | 4. 최근 거래 확인 | 4. 신규 계좌 생성 | 9. 로그아웃 | 0. 종료");
 			System.out.println("---------------------------------------------------------------------------");
 			System.out.print("메뉴 선택 > ");
 

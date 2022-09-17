@@ -37,6 +37,7 @@ public class CustomerDaoImpl implements CustomerDao {
 			ps.setString(1, customer.getId());
 			ps.setString(2, customer.getPassword());
 			ps.setString(3, customer.getName());
+			ps.setString(4, customer.getTel());
 			
 			result = ps.executeUpdate();
 		} finally {
@@ -70,7 +71,7 @@ public class CustomerDaoImpl implements CustomerDao {
 			rs = ps.executeQuery();
 			
 			if (rs.next()) {
-				customer = new Customer(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(5), rs.getString(6), rs.getLong(7));
+				customer = new Customer(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5), rs.getString(6), rs.getString(7), rs.getLong(8));
 			}
 		} finally {
 			DbUtil.close(con, ps, rs);
@@ -97,7 +98,7 @@ public class CustomerDaoImpl implements CustomerDao {
 			rs = ps.executeQuery();
 			
 			while (rs.next()) {
-				Customer customer = new Customer(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(5), rs.getString(6), rs.getLong(7));
+				Customer customer = new Customer(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5), rs.getString(6), rs.getString(7), rs.getLong(8));
 				customers.add(customer);
 			}
 		} finally {
