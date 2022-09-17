@@ -15,6 +15,13 @@ public interface AccountService {
 	public Account insertAccount(Account account) throws SQLException;
 	
 	/**
+	 * 계좌 상태 변경
+	 * @param: Account
+	 * @return: int(1일 경우 성공, 아닐 경우 실패)
+	 * */
+	public int updateAccountState(Account account) throws SQLException;
+	
+	/**
 	 * 전체 계좌 검색
 	 * @return: List<Account>
 	 * */

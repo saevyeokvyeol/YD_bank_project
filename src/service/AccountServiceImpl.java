@@ -1,14 +1,12 @@
-package dao;
+package service;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import dto.Account;
 import dto.AccountState;
 
-public class AccountDaoImpl implements AccountDao {
-	List<Account> accounts = new ArrayList<Account>();
+public class AccountServiceImpl implements AccountService {
 
 	/**
 	 * 계좌 개설
@@ -16,11 +14,9 @@ public class AccountDaoImpl implements AccountDao {
 	 * @return: Account
 	 * */
 	@Override
-	public Account insertAccount(Account account) {
-		account.createAccountId();
-		account.createOpenDate();
-		accounts.add(account);
-		return account;
+	public Account insertAccount(Account account) throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	/**
@@ -50,7 +46,7 @@ public class AccountDaoImpl implements AccountDao {
 	 * @return: Account
 	 * */
 	@Override
-	public Account findByAccountid(String accountId) {
+	public Account findByAccountid(String accountId) throws SQLException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -76,4 +72,5 @@ public class AccountDaoImpl implements AccountDao {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 }
