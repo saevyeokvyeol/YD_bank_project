@@ -20,7 +20,7 @@ public class CustomerController {
 	public void signup(Customer customer, String checkPwd) {
 		try {
 			Customer signupedCustomer = customerService.signup(customer, checkPwd);
-			SucceessView.printSignup(signupedCustomer);
+			SucceessView.printMessage(signupedCustomer.getName() + "님, 가입이 완료되었습니다.\n로그인 후 서비스를 이용해주세요.");
 		} catch (Exception e) {
 			FailView.printErrorMessage(e);
 //			e.printStackTrace();

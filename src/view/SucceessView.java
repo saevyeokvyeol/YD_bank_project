@@ -16,8 +16,8 @@ public class SucceessView {
 		return sb.toString();
 	}
 	
-	public static void printSignup(Customer customer) {
-		System.out.println("\n" + customer.getName() + "님, 가입이 완료되었습니다.\n로그인 후 서비스를 이용해주세요.");
+	public static void printMessage(String message) {
+		System.out.println("\n" + message);
 	}
 	
 	public static void printCustomers(List<Customer> customers) {

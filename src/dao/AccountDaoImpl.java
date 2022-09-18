@@ -1,26 +1,43 @@
 package dao;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 import dto.Account;
 import dto.AccountState;
+import util.DbUtil;
 
 public class AccountDaoImpl implements AccountDao {
-	List<Account> accounts = new ArrayList<Account>();
+	private Properties profile = DbUtil.getProfile();
 
 	/**
 	 * 계좌 개설
-	 * @param: Account
-	 * @return: Account
+	 * @param: String id
+	 * @return: int
 	 * */
 	@Override
-	public Account insertAccount(Account account) {
-		account.createAccountId();
-		account.createOpenDate();
-		accounts.add(account);
-		return account;
+	public int save(String id) throws SQLException {
+		Connection con = null;
+		PreparedStatement ps = null;
+		
+		String sql = profile.getProperty("account.save");
+		int result = 0;
+		
+		try {
+			con = DbUtil.getConnection();
+			
+			ps = con.prepareStatement(sql);
+			ps.setString(1, id);
+			
+			result = ps.executeUpdate();
+		} finally {
+			DbUtil.close(con, ps);
+		}
+		return result;
 	}
 
 	/**

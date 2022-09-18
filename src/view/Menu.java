@@ -2,6 +2,7 @@ package view;
 
 import java.util.Scanner;
 
+import controller.AccountController;
 import controller.CustomerController;
 import dto.Customer;
 import service.Bank;
@@ -12,6 +13,7 @@ public class Menu {
 	private Scanner scanner = new Scanner(System.in);
 	private Bank bank = new BankImpl();
 	private CustomerController customerController = new CustomerController();
+	private AccountController accountController = new AccountController();
 	private boolean run = true;
 	private Session session = Session.getInstance();
 	
@@ -77,6 +79,7 @@ public class Menu {
 				bank.nowBalance();
 				break;
 			case 4:
+				accountController.insertAccount();
 				break;
 			case 9:
 				customerController.logout();

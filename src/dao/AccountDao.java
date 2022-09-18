@@ -9,10 +9,10 @@ import dto.AccountState;
 public interface AccountDao {
 	/**
 	 * 계좌 개설
-	 * @param: Account
-	 * @return: Account
+	 * @param: String id
+	 * @return: int
 	 * */
-	public Account insertAccount(Account account) throws SQLException;
+	public int save(String id) throws SQLException;
 	
 	/**
 	 * 계좌 상태 변경

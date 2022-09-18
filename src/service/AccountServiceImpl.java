@@ -3,20 +3,22 @@ package service;
 import java.sql.SQLException;
 import java.util.List;
 
+import dao.AccountDao;
+import dao.AccountDaoImpl;
 import dto.Account;
 import dto.AccountState;
 
 public class AccountServiceImpl implements AccountService {
+	private AccountDao accountDao = new AccountDaoImpl();
 
 	/**
 	 * 계좌 개설
-	 * @param: Account
-	 * @return: Account
+	 * @param: String id
 	 * */
 	@Override
-	public Account insertAccount(Account account) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+	public void insertAccount(String id) throws SQLException {
+		int result = accountDao.save(id);
+		if (result != 1) throw new SQLException("오류로 인해 계좌가 생성되지 않았습니다.\n다시 시도해주세요.");
 	}
 
 	/**

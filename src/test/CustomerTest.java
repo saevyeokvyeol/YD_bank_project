@@ -6,7 +6,7 @@ import session.Session;
 
 public class CustomerTest {
 	private CustomerController controller = new CustomerController();
-	private TestDelete delete = new TestDelete();
+	private TestUtil delete = new TestUtil();
 	
 	public void signupTest() {
 		controller.findAll();
