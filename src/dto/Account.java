@@ -1,50 +1,46 @@
 package dto;
 
-import java.time.LocalDateTime;
-import java.util.Random;
-
 public class Account {
-	private String accountId;
+	private int accountId;
 	private String id;
+	private int stateId;
 	private Long balance;
-	private Long accountClassId;
-	private LocalDateTime openDate;
+	private String openDate;
+	private String updateDate;
 	
-	public Account(String id, Long accountClassId) {
+	public Account() {}
+
+	public Account(int accountId, String id, int stateId, Long balance, String openDate, String updateDate) {
+		super();
+		this.accountId = accountId;
 		this.id = id;
-		this.accountClassId = accountClassId;
+		this.stateId = stateId;
+		this.balance = balance;
+		this.openDate = openDate;
+		this.updateDate = updateDate;
 	}
 
-	public String getAccountId() {
+	public int getAccountId() {
 		return accountId;
 	}
-	
+
 	public String getId() {
 		return id;
 	}
-	
+
+	public int getStateId() {
+		return stateId;
+	}
+
 	public Long getBalance() {
 		return balance;
 	}
-	
-	public Long getAccountClassId() {
-		return accountClassId;
-	}
-	
-	public LocalDateTime getOpenDate() {
+
+	public String getOpenDate() {
 		return openDate;
 	}
-	
-	public void createAccountId() {
-		StringBuffer buffer = new StringBuffer();
-		Random random = new Random();
-		for(int i = 0; i <= 3; i++) {
-			buffer.append(random.nextInt(9));
-		}
-		this.accountId = buffer.toString();
-	}
-	
-	public void createOpenDate() {
-		this.openDate = LocalDateTime.now();
+
+	public String getUpdateDate() {
+		return updateDate;
 	}
 }

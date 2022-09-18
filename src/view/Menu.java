@@ -76,7 +76,7 @@ public class Menu {
 				customerController.customerInfo();
 				break;
 			case 3:
-				bank.nowBalance();
+				accountController.findById(true);
 				break;
 			case 4:
 				accountController.insertAccount();

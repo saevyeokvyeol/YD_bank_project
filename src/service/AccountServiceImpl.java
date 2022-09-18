@@ -60,8 +60,8 @@ public class AccountServiceImpl implements AccountService {
 	 * */
 	@Override
 	public List<Account> findById(String id, boolean state) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		List<Account> accounts = accountDao.findById(id, state);
+		return accounts;
 	}
 
 	/**

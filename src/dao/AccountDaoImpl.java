@@ -2,6 +2,7 @@ package dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -79,8 +80,34 @@ public class AccountDaoImpl implements AccountDao {
 	 * */
 	@Override
 	public List<Account> findById(String id, boolean state) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		String sql = null;
+		if (state) {			
+			sql = profile.getProperty("account.findByIdTrue");
+		} else {
+			sql = profile.getProperty("account.findByIdFalse");
+		}
+		List<Account> accounts = new ArrayList<Account>();
+		
+		try {
+			con = DbUtil.getConnection();
+			ps = con.prepareStatement(sql);
+			ps.setString(1, id);
+			
+			rs = ps.executeQuery();
+			
+			while (rs.next()) {
+				Account account = new Account(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getLong(4), rs.getString(5), rs.getString(6));
+				accounts.add(account);
+			}
+		} finally {
+			DbUtil.close(con, ps, rs);
+		}
+		
+		return accounts;
 	}
 
 	/**

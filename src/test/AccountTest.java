@@ -14,15 +14,26 @@ public class AccountTest {
 		accountController.insertAccount();
 		
 		System.out.println("\n성공: 로그인O");
-		test.login(new Customer("test", "1234"));
+		test.login(new Customer("test", "test"));
 		accountController.insertAccount();
 		
 		test.delete("delete from account where id = 'test'");
 	}
 	
+	public void findByIdTest() {
+		System.out.println("계좌가 하나도 없을 때");
+		test.login(new Customer("test", "test"));
+		accountController.findById(true);
+
+		System.out.println("\n계좌가 있을 때");
+		test.login(new Customer("yuda", "1234"));
+		accountController.findById(true);
+	}
+	
 	public static void main(String[] args) {
 		AccountTest test = new AccountTest();
 		
-		test.insertTest();
+//		test.insertTest();
+		test.findByIdTest();
 	}
 }

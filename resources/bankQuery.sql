@@ -37,6 +37,7 @@ CREATE TABLE Customer (
 );
 
 INSERT INTO CUSTOMER VALUES('admin', 'admin', '관리자', '00000000000', 1, sysdate, sysdate, 0);
+INSERT INTO CUSTOMER VALUES('test', 'test', '테스트', '00000000000', 1, sysdate, sysdate, 0);
 INSERT INTO CUSTOMER VALUES('yuda', '1234', '김유다', '01012345678', 6, sysdate, sysdate, 10000000000);
 INSERT INTO CUSTOMER VALUES('hyun', '1224', '김유현', '01012245668',6, sysdate, sysdate, 99999999999);
 INSERT INTO CUSTOMER VALUES('eunt', '7777', '고은태', '01077777777',6, sysdate, sysdate, 77777777777);
@@ -97,3 +98,5 @@ CREATE SEQUENCE TRANSACTION_ID_SEQ MINVALUE 10000 MAXVALUE 99999;
 COMMIT;
 
 select * from grade where grade_id = 1;
+
+select * from account where id = 'yuda' and state_id = 1 order by open_date;
