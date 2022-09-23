@@ -38,6 +38,7 @@ CREATE TABLE Customer (
 
 INSERT INTO CUSTOMER VALUES('admin', 'admin', '관리자', '00000000000', 1, sysdate, sysdate, 0);
 INSERT INTO CUSTOMER VALUES('test', 'test', '테스트', '00000000000', 1, sysdate, sysdate, 0);
+INSERT INTO CUSTOMER VALUES('tset', 'tset', '테스트', '00000000000', 1, sysdate, sysdate, 10000);
 INSERT INTO CUSTOMER VALUES('yuda', '1234', '김유다', '01012345678', 6, sysdate, sysdate, 10000000000);
 INSERT INTO CUSTOMER VALUES('hyun', '1224', '김유현', '01012245668',6, sysdate, sysdate, 99999999999);
 INSERT INTO CUSTOMER VALUES('eunt', '7777', '고은태', '01077777777',6, sysdate, sysdate, 77777777777);
@@ -72,6 +73,8 @@ INSERT INTO ACCOUNT VALUES(ACCOUNT_ID_SEQ.NEXTVAL, 'hyun', 1, 33333333333, sysda
 INSERT INTO ACCOUNT VALUES(ACCOUNT_ID_SEQ.NEXTVAL, 'aeri', 1, 30000000, sysdate, sysdate);
 INSERT INTO ACCOUNT VALUES(ACCOUNT_ID_SEQ.NEXTVAL, 'yuda', 1, 5000000000, sysdate, sysdate);
 INSERT INTO ACCOUNT VALUES(ACCOUNT_ID_SEQ.NEXTVAL, 'hyun', 1, 33333333333, sysdate, sysdate);
+INSERT INTO ACCOUNT VALUES(ACCOUNT_ID_SEQ.NEXTVAL, 'test', 1, 10000, sysdate, sysdate);
+INSERT INTO ACCOUNT VALUES(ACCOUNT_ID_SEQ.NEXTVAL, 'tset', 1, 0, sysdate, sysdate);
 
 -- 거래 구분
 CREATE TABLE Transaction_class (
@@ -86,6 +89,7 @@ INSERT INTO TRANSACTION_CLASS VALUES(3, '계좌이체');
 -- 거래
 CREATE TABLE Transaction (
 	transaction_id	NUMBER	PRIMARY KEY,
+	id	VARCHAR2(30)	REFERENCES customer(id)	NOT NULL,
 	deposit_account_id	NUMBER	REFERENCES Account(account_id),
 	withdraw_account_id	NUMBER	REFERENCES Account(account_id),
 	transaction_class_id	NUMBER	REFERENCES Transaction_class(transaction_class_id)	NOT NULL,
@@ -93,10 +97,19 @@ CREATE TABLE Transaction (
 	transaction_Date	DATE	DEFAULT SYSDATE	NOT NULL
 );
 
-CREATE SEQUENCE TRANSACTION_ID_SEQ MINVALUE 10000 MAXVALUE 99999;
+CREATE SEQUENCE TRANSACTION_ID_SEQ;
+
+insert into transaction values(transaction_id_seq.nextval, 입금, 출금, 분류, 금액, sysdate);
 
 COMMIT;
 
 select * from grade where grade_id = 1;
 
 select * from account where id = 'yuda' and state_id = 1 order by open_date;
+
+
+select id from account where account_id=10000;
+
+
+update customer
+set grade_id = (select grade_id from grade where 0 between GRADE_MINIMUM and GRADE_MAXIMUM) where id = 'test';

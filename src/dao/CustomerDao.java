@@ -1,5 +1,6 @@
 package dao;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -14,6 +15,20 @@ public interface CustomerDao {
 	 * @return: Customer
 	 * */
 	public Customer signup(Customer customer) throws SQLException;
+
+	/**
+	 * 총 예치액 출금 처리
+	 * @param: Connection con, String id, Long amount
+	 * @return: int
+	 * */
+	public int withdraw(Connection con, String id, Long amount) throws SQLException;
+	
+	/**
+	 * 총 예치액 입금 처리
+	 * @param: Connection con, String id, Long amount
+	 * @return: int
+	 * */
+	public int deposit(Connection con, String id, Long amount) throws SQLException;
 
 	/**
 	 * 아이디 찾기
@@ -61,4 +76,11 @@ public interface CustomerDao {
 	 * @return: Grade
 	 * */
 	public Grade findByGradeId(int gradeId) throws SQLException;
+	
+	/**
+	 * 회원의 등급 수정
+	 * @param: String id, Long totalBalance
+	 * @return: int
+	 * */
+	public int updateCustomerGrade(Connection con, String id, Long totalBalance) throws SQLException;
 }

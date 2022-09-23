@@ -42,6 +42,56 @@ public class AccountDaoImpl implements AccountDao {
 	}
 
 	/**
+	 * 계좌 출금 처리
+	 * @param: Connection con, int accountId, Long amount
+	 * @return: int
+	 * */
+	@Override
+	public int withdraw(Connection con, int accountId, Long amount) throws SQLException {
+		PreparedStatement ps = null;
+		
+		String sql = profile.getProperty("account.withdraw");
+		int result = 0;
+				
+		try {
+			ps = con.prepareStatement(sql);
+			ps.setLong(1, amount);
+			ps.setInt(2, accountId);
+			
+			result = ps.executeUpdate();
+		} finally {
+			DbUtil.close(null, ps);
+		}
+		
+		return result;
+	}
+
+	/**
+	 * 계좌 입금 처리
+	 * @param: Connection con, int accountId, Long amount
+	 * @return: int
+	 * */
+	@Override
+	public int deposit(Connection con, int accountId, Long amount) throws SQLException {
+		PreparedStatement ps = null;
+		
+		String sql = profile.getProperty("account.deposit");
+		int result = 0;
+				
+		try {
+			ps = con.prepareStatement(sql);
+			ps.setLong(1, amount);
+			ps.setInt(2, accountId);
+			
+			result = ps.executeUpdate();
+		} finally {
+			DbUtil.close(null, ps);
+		}
+		
+		return result;
+	}
+
+	/**
 	 * 계좌 상태 변경
 	 * @param: Account
 	 * @return: int(1일 경우 성공, 아닐 경우 실패)
@@ -64,13 +114,33 @@ public class AccountDaoImpl implements AccountDao {
 
 	/**
 	 * 계좌 번호로 계좌 검색
-	 * @param: String accountId
+	 * @param: int accountId
 	 * @return: Account
 	 * */
 	@Override
-	public Account findByAccountid(String accountId) {
-		// TODO Auto-generated method stub
-		return null;
+	public Account findByAccountid(int accountId) throws SQLException {
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		String sql = profile.getProperty("account.findByAccountid");
+		Account account = null;
+		
+		try {
+			con = DbUtil.getConnection();
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, accountId);
+			
+			rs = ps.executeQuery();
+			
+			if (rs.next()) {
+				account = new Account(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getLong(4), rs.getString(5), rs.getString(6));
+			}
+		} finally {
+			DbUtil.close(con, ps, rs);
+		}
+		
+		return account;
 	}
 
 	/**

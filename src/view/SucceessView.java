@@ -5,10 +5,10 @@ import java.util.List;
 
 import dto.Account;
 import dto.Customer;
+import dto.Transaction;
 
 public class SucceessView {
 	private static DecimalFormat won = new DecimalFormat("#,###");
-	
 	
 	public static String getTel(String tel) {
 		StringBuffer sb = new StringBuffer();
@@ -64,5 +64,29 @@ public class SucceessView {
 				System.out.println(getDate(account.getOpenDate()) + "\t" + getDate(account.getUpdateDate()));
 			}
 		}
+	}
+	
+	public static void printTransaction(Transaction transaction) {
+		String transactionClass = null;
+		if (transaction.getTransactionClassId() == 1) {
+			transactionClass = "현금 입금";
+		} else if (transaction.getTransactionClassId() == 2) {
+			transactionClass = "현금 출금";
+		} else if (transaction.getTransactionClassId() == 3) {
+			transactionClass = "계좌 이체";
+		}
+		
+		System.out.println("\n▒▒▒▒▒ 거래 명세서 ▒▒▒▒▒");
+		System.out.println("거래자명: " + transaction.getCustomer().getName());		
+		System.out.println("거래 종류: " + transactionClass + "\n");
+		if (transaction.getTransactionClassId() != 1) {
+			System.out.println("출금 계좌: " + transaction.getWithdrawAccountId());
+		}
+		if (transaction.getTransactionClassId() != 2) {
+			System.out.println("입금 계좌: " + transaction.getDepositAccountId());
+		}
+		
+		System.out.println("\n거래 금액: " + won.format(transaction.getTransactionAmount()) + "원");
+		System.out.println("▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒");
 	}
 }

@@ -1,5 +1,6 @@
 package dao;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -13,6 +14,20 @@ public interface AccountDao {
 	 * @return: int
 	 * */
 	public int save(String id) throws SQLException;
+	
+	/**
+	 * 계좌 출금 처리
+	 * @param: Connection con, int accountId, Long amount
+	 * @return: int
+	 * */
+	public int withdraw(Connection con, int accountId, Long amount) throws SQLException;
+	
+	/**
+	 * 계좌 입금 처리
+	 * @param: Connection con, int accountId, Long amount
+	 * @return: int
+	 * */
+	public int deposit(Connection con, int accountId, Long amount) throws SQLException;
 	
 	/**
 	 * 계좌 상태 변경
@@ -29,10 +44,10 @@ public interface AccountDao {
 
 	/**
 	 * 계좌 번호로 계좌 검색
-	 * @param: String accountId
+	 * @param: int accountId
 	 * @return: Account
 	 * */
-	public Account findByAccountid(String accountId) throws SQLException;
+	public Account findByAccountid(int accountId) throws SQLException;
 
 	/**
 	 * 회원 아이디로 계좌 검색

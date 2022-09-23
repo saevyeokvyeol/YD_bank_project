@@ -6,7 +6,7 @@ import session.Session;
 
 public class CustomerTest {
 	private CustomerController controller = new CustomerController();
-	private TestUtil delete = new TestUtil();
+	private TestUtil util = new TestUtil();
 	
 	public void signupTest() {
 		controller.findAll();
@@ -29,7 +29,7 @@ public class CustomerTest {
 		
 		controller.findAll();
 		
-		delete.delete("delete from customer where id in ('rang', 'gang')");
+		util.delete("delete from customer where id in ('rang', 'gang')");
 	}
 	
 	public void loginTest() {

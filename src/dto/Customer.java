@@ -9,7 +9,7 @@ public class Customer {
 	private String tel;
 	private int gradeId;
 	private String signupDate;
-	private String UpdateDate;
+	private String updateDate;
 	private Long totalBalance;
 	
 	private Grade grade;
@@ -33,7 +33,7 @@ public class Customer {
 		this(id, password, name, tel);
 		this.gradeId = gradeId;
 		this.signupDate = signupDate;
-		this.UpdateDate = updateDate;
+		this.updateDate = updateDate;
 		this.totalBalance = totalBalance;
 	}
 	
@@ -62,7 +62,7 @@ public class Customer {
 	}
 
 	public String getUpdateDate() {
-		return UpdateDate;
+		return updateDate;
 	}
 
 	public Long getTotalBalance() {

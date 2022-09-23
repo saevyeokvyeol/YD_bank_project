@@ -20,7 +20,7 @@ public class TestUtil {
 	 * 테스트 코드 실행 후 레코드 삭제를 위한 메소드
 	 * 실제 사용 금지
 	 * */
-	public void delete(String sql) {
+	protected void delete(String sql) {
 		Connection con = null;
 		PreparedStatement ps = null;
 		
@@ -38,7 +38,7 @@ public class TestUtil {
 	/**
 	 * 테스트용 로그인 메소드: 세션 계정 정보 저장용
 	 * */
-	public void login(Customer customer) {
+	protected void login(Customer customer) {
 		try {
 			Customer loginUser = customerService.login(customer);
 			session.setAttribute("loginUser", loginUser);

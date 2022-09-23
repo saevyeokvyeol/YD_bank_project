@@ -9,23 +9,8 @@ public interface TransactionService {
 	/**
 	 * 거래 생성
 	 * @param: Transaction
-	 * @return: int
 	 * */
-	public int insertTransaction(Transaction transaction) throws SQLException;
-	
-	/**
-	 * 계좌 출금 처리
-	 * @param: int accountId, Long amount
-	 * @return: int
-	 * */
-	public int withdraw(int accountId, Long amount) throws SQLException;
-	
-	/**
-	 * 계좌 입금 처리
-	 * @param: int accountId, Long amount
-	 * @return: int
-	 * */
-	public int deposit(int accountId, Long amount) throws SQLException;
+	public void insertTransaction(Transaction transaction) throws SQLException;
 	
 	/**
 	 * 전체 거래 검색

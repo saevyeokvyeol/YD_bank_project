@@ -4,7 +4,9 @@ import java.util.Scanner;
 
 import controller.AccountController;
 import controller.CustomerController;
+import controller.TransactionController;
 import dto.Customer;
+import dto.Transaction;
 import service.Bank;
 import service.BankImpl;
 import session.Session;
@@ -14,8 +16,8 @@ public class Menu {
 	private Bank bank = new BankImpl();
 	private CustomerController customerController = new CustomerController();
 	private AccountController accountController = new AccountController();
+	private TransactionController transactionController = new TransactionController();
 	private boolean run = true;
-	private Session session = Session.getInstance();
 	
 	public void mainMenu() {
 		while(run) {
@@ -66,7 +68,7 @@ public class Menu {
 			System.out.println("---------------------------------------------------------------------------");
 			System.out.print("메뉴 선택 > ");
 
-			int select = scanner.nextInt();
+			int select = Integer.parseInt(scanner.nextLine());
 			
 			switch (select) {
 			case 1:
@@ -93,22 +95,49 @@ public class Menu {
 	public void transactionMenu() {
 		while (run) {
 			System.out.println("\n-------------------------------------------------------------------");
-			System.out.println(" 1. 입금하기 | 2. 출금하기 | 3. 잔고 확인 | 9. 뒤로 가기 | 0. 종료");
+			System.out.println(" 1. 현금 입금 | 2. 현금 출금 | 3. 계좌 이체 | 9. 뒤로 가기 | 0. 종료");
 			System.out.println("-------------------------------------------------------------------");
 			System.out.print("메뉴 선택 > ");
 
-			int select = scanner.nextInt();
-			
+			int select = Integer.parseInt(scanner.nextLine());
+			int depositAccount = 0;
+			int withdrawAccount = 0;
+			Long amount = 0L;
 			switch (select) {
 			case 1:
-				bank.deposit();
-				break;
+				System.out.println("입금할 계좌 번호를 입력하세요.");
+				System.out.print("> ");
+				depositAccount = Integer.parseInt(scanner.nextLine());
+
+				System.out.println("입금할 액수를 입력하세요.");
+				System.out.print("> ");
+				amount = (long) Integer.parseInt(scanner.nextLine());
+				transactionController.insertTransaction(new Transaction(depositAccount, 0, 1, amount));
+				return;
 			case 2:
-				bank.withdraw();
-				break;
+				System.out.println("출금할 계좌 번호를 입력하세요.");
+				System.out.print("> ");
+				withdrawAccount = Integer.parseInt(scanner.nextLine());
+
+				System.out.println("출금할 액수를 입력하세요.");
+				System.out.print("> ");
+				amount = (long) Integer.parseInt(scanner.nextLine());
+				transactionController.insertTransaction(new Transaction(0, withdrawAccount, 2, amount));
+				return;
 			case 3:
-				bank.nowBalance();
-				break;
+				System.out.println("입금할 계좌 번호를 입력하세요.");
+				System.out.print("> ");
+				depositAccount = Integer.parseInt(scanner.nextLine());
+				
+				System.out.println("출금할 계좌 번호를 입력하세요.");
+				System.out.print("> ");
+				withdrawAccount = Integer.parseInt(scanner.nextLine());
+
+				System.out.println("이체할 액수를 입력하세요.");
+				System.out.print("> ");
+				amount = (long) Integer.parseInt(scanner.nextLine());
+				transactionController.insertTransaction(new Transaction(depositAccount, withdrawAccount, 3, amount));
+				return;
 			case 9:
 				return;
 			case 0:

@@ -173,5 +173,96 @@ public class CustomerDaoImpl implements CustomerDao {
 			DbUtil.close(con, ps, rs);
 		}
 		return grade;
+	}
+
+	/**
+	 * 총 예치액 출금 처리
+	 * @param: Connection con, String id, Long amount
+	 * @return: int
+	 * */
+	@Override
+	public int withdraw(Connection con, String id, Long amount) throws SQLException {
+		PreparedStatement ps = null;
+		
+		String sql = profile.getProperty("customer.withdraw");
+		int result = 0;
+				
+		try {
+			ps = con.prepareStatement(sql);
+			ps.setLong(1, amount);
+			ps.setString(2, id);
+			
+			result = ps.executeUpdate();
+			
+			Customer customer = this.findById(id);
+			Grade grade = this.findByGradeId(customer.getGradeId());
+			
+			if (customer.getTotalBalance() - amount < grade.getGradeMinimum()) {
+				updateCustomerGrade(con, id, customer.getTotalBalance() - amount);
+			}
+		} finally {
+			DbUtil.close(null, ps);
+		}
+		
+		return result;
+	}
+
+	/**
+	 * 총 예치액 입금 처리
+	 * @param: Connection con, String id, Long amount
+	 * @return: int
+	 * */
+	@Override
+	public int deposit(Connection con, String id, Long amount) throws SQLException {
+		PreparedStatement ps = null;
+		
+		String sql = profile.getProperty("customer.deposit");
+		int result = 0;
+				
+		try {
+			ps = con.prepareStatement(sql);
+			ps.setLong(1, amount);
+			ps.setString(2, id);
+			
+			result = ps.executeUpdate();
+			
+			Customer customer = this.findById(id);
+			Grade grade = this.findByGradeId(customer.getGradeId());
+			
+			if (customer.getTotalBalance() + amount > grade.getGradeMaximum()) {
+				updateCustomerGrade(con, id, customer.getTotalBalance() + amount);
+			}
+		} finally {
+			DbUtil.close(null, ps);
+		}
+		
+		return result;
+	}
+
+	/**
+	 * 회원의 등급 수정
+	 * @param: String id, Long totalBalance
+	 * @return: int
+	 * */
+	@Override
+	public int updateCustomerGrade(Connection con, String id, Long totalBalance) throws SQLException {
+		PreparedStatement ps = null;
+		
+		String sql = profile.getProperty("customer.updateCustomerGrade");
+		int result = 0;
+				
+		try {
+			ps = con.prepareStatement(sql);
+			ps.setLong(1, totalBalance);
+			ps.setString(2, id);
+			
+			System.out.println(totalBalance);
+			
+			result = ps.executeUpdate();
+		} finally {
+			DbUtil.close(null, ps);
+		}
+		
+		return result;
 	};
 }
