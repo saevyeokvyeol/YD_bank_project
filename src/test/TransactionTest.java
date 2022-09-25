@@ -17,8 +17,14 @@ public class TransactionTest {
 		controller.insertTransaction(new Transaction(0, 10008, 2, (long) 3000));
 	}
 	
+	public void findById() {
+		util.login(new Customer("test", "test"));
+		controller.findById(null);
+	}
+	
 	public static void main(String[] args) {
 		TransactionTest test = new TransactionTest();
-		test.insertTransactionTest();
+//		test.insertTransactionTest();
+		test.findById();
 	}
 }

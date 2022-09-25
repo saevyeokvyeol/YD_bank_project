@@ -23,26 +23,26 @@ public interface TransactionService {
 	 * @param: String id(회원 아이디)
 	 * @return: List<Transaction>
 	 * */
-	public List<Transaction> findById() throws SQLException;
+	public List<Transaction> findById(String id) throws SQLException;
 	
 	/**
 	 * 계좌별 거래 검색
 	 * @param: int accountId(계좌 번호)
 	 * @return: List<Transaction>
 	 * */
-	public List<Transaction> findByAccountId() throws SQLException;
+	public List<Transaction> findByAccountId(int accountId) throws SQLException;
 	
 	/**
 	 * 거래 아이디로 거래 검색
 	 * @param: int transactionId(거래 번호)
 	 * @return: List<Transaction>
 	 * */
-	public List<Transaction> findByTransactionId() throws SQLException;
+	public List<Transaction> findByTransactionId(int transactionId) throws SQLException;
 	
 	/**
 	 * 거래 분류별 거래 검색
-	 * @param: int findByTransactionClassId(거래 번호)
+	 * @param: int transactionClassId(거래 번호)
 	 * @return: List<Transaction>
 	 * */
-	public List<Transaction> findByTransactionClassId() throws SQLException;
+	public List<Transaction> findByTransactionClassId(int transactionClassId) throws SQLException;
 }

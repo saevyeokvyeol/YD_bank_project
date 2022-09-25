@@ -3,8 +3,8 @@ package dto;
 public class Transaction {
 	private Long transactionId;
 	private String id;
-	private int depositAccountId;
-	private int withdrawAccountId;
+	private Integer depositAccountId;
+	private Integer withdrawAccountId;
 	private int transactionClassId;
 	private Long transactionAmount;
 	private String transactionDate;
@@ -13,18 +13,18 @@ public class Transaction {
 	
 	public Transaction() {}
 
-	public Transaction(int depositAccountId, int withdrawAccountId, int transactionClassId, Long transactionAmount) {
-		super();
+	public Transaction(Integer depositAccountId, Integer withdrawAccountId, int transactionClassId, Long transactionAmount) {
 		this.depositAccountId = depositAccountId;
 		this.withdrawAccountId = withdrawAccountId;
 		this.transactionClassId = transactionClassId;
 		this.transactionAmount = transactionAmount;
 	}
 
-	public Transaction(Long transactionId, int depositAccountId, int withdrawAccountId, int transactionClassId,
-			Long transactionAmount, String transactionDate) {
+	public Transaction(Long transactionId, String id, Integer depositAccountId, Integer withdrawAccountId,
+			int transactionClassId, Long transactionAmount, String transactionDate) {
 		this(depositAccountId, withdrawAccountId, transactionClassId, transactionAmount);
 		this.transactionId = transactionId;
+		this.id = id;
 		this.transactionDate = transactionDate;
 	}
 

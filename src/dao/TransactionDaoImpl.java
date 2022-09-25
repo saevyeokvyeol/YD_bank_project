@@ -122,9 +122,28 @@ public class TransactionDaoImpl implements TransactionDao {
 	 * @return: List<Transaction>
 	 * */
 	@Override
-	public List<Transaction> findById() throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Transaction> findById(String id) throws SQLException {
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		String sql = profile.getProperty("transaction.findById");
+		List<Transaction> transactions = new ArrayList<Transaction>();
+		try {
+			con = DbUtil.getConnection();
+			ps = con.prepareStatement(sql);
+			ps.setString(1, id);
+			ps.setString(2, id);
+			rs = ps.executeQuery();
+			
+			while (rs.next()) {
+				Transaction transaction = new Transaction(rs.getLong(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getInt(5), rs.getLong(6), rs.getString(7));
+				transactions.add(transaction);
+			}
+		} finally {
+			DbUtil.close(con, ps, rs);
+		}
+		return transactions;
 	}
 
 	/**
@@ -133,7 +152,7 @@ public class TransactionDaoImpl implements TransactionDao {
 	 * @return: List<Transaction>
 	 * */
 	@Override
-	public List<Transaction> findByAccountId() throws SQLException {
+	public List<Transaction> findByAccountId(int accountId) throws SQLException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -144,7 +163,7 @@ public class TransactionDaoImpl implements TransactionDao {
 	 * @return: List<Transaction>
 	 * */
 	@Override
-	public List<Transaction> findByTransactionId() throws SQLException {
+	public List<Transaction> findByTransactionId(int transactionId) throws SQLException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -155,7 +174,7 @@ public class TransactionDaoImpl implements TransactionDao {
 	 * @return: List<Transaction>
 	 * */
 	@Override
-	public List<Transaction> findByTransactionClassId() throws SQLException {
+	public List<Transaction> findByTransactionClassId(int findByTransactionClassId) throws SQLException {
 		// TODO Auto-generated method stub
 		return null;
 	}

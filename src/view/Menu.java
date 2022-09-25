@@ -112,7 +112,7 @@ public class Menu {
 				System.out.println("입금할 액수를 입력하세요.");
 				System.out.print("> ");
 				amount = (long) Integer.parseInt(scanner.nextLine());
-				transactionController.insertTransaction(new Transaction(depositAccount, 0, 1, amount));
+				transactionController.insertTransaction(new Transaction(depositAccount, null, 1, amount));
 				return;
 			case 2:
 				System.out.println("출금할 계좌 번호를 입력하세요.");
@@ -122,7 +122,7 @@ public class Menu {
 				System.out.println("출금할 액수를 입력하세요.");
 				System.out.print("> ");
 				amount = (long) Integer.parseInt(scanner.nextLine());
-				transactionController.insertTransaction(new Transaction(0, withdrawAccount, 2, amount));
+				transactionController.insertTransaction(new Transaction(null, withdrawAccount, 2, amount));
 				return;
 			case 3:
 				System.out.println("입금할 계좌 번호를 입력하세요.");

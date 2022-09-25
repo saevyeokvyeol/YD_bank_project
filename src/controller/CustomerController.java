@@ -11,7 +11,7 @@ import session.Session;
 //import session.SessionSet;
 import view.FailView;
 import view.Menu;
-import view.SucceessView;
+import view.SuccessView;
 
 public class CustomerController {
 	private CustomerService customerService = new CustomerServiceImpl();
@@ -20,7 +20,7 @@ public class CustomerController {
 	public void signup(Customer customer, String checkPwd) {
 		try {
 			Customer signupedCustomer = customerService.signup(customer, checkPwd);
-			SucceessView.printMessage(signupedCustomer.getName() + "님, 가입이 완료되었습니다.\n로그인 후 서비스를 이용해주세요.");
+			SuccessView.printMessage(signupedCustomer.getName() + "님, 가입이 완료되었습니다.\n로그인 후 서비스를 이용해주세요.");
 		} catch (Exception e) {
 			FailView.printErrorMessage(e);
 //			e.printStackTrace();
@@ -46,7 +46,7 @@ public class CustomerController {
 	public void findAll() {
 		try {
 			List<Customer> customers = customerService.findAll();
-			SucceessView.printCustomers(customers);
+			SuccessView.printCustomers(customers);
 		} catch (Exception e) {
 			FailView.printErrorMessage(e);
 		}
@@ -56,7 +56,7 @@ public class CustomerController {
 		try {
 			Customer sessionCustomer = (Customer)session.getAttribute("loginUser");
 			Customer customer = customerService.customerInfo(sessionCustomer.getId());
-			SucceessView.printCustomerInfo(customer);
+			SuccessView.printCustomerInfo(customer);
 		} catch (Exception e) {
 //			e.printStackTrace();
 			FailView.printErrorMessage(e);
@@ -66,7 +66,7 @@ public class CustomerController {
 	public void customerInfo(String id) {
 		try {
 			Customer customer = customerService.customerInfo(id);
-			SucceessView.printCustomerInfo(customer);
+			SuccessView.printCustomerInfo(customer);
 		} catch (Exception e) {
 //			e.printStackTrace();
 			FailView.printErrorMessage(e);

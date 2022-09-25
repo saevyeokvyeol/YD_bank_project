@@ -7,7 +7,7 @@ import dto.Account;
 import dto.Customer;
 import dto.Transaction;
 
-public class SucceessView {
+public class SuccessView {
 	private static DecimalFormat won = new DecimalFormat("#,###");
 	
 	public static String getTel(String tel) {
@@ -88,5 +88,41 @@ public class SucceessView {
 		
 		System.out.println("\n거래 금액: " + won.format(transaction.getTransactionAmount()) + "원");
 		System.out.println("▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒");
+	}
+	
+	public static void printTransactionsFindById(List<Transaction> transactions) {
+		System.out.println("거래 내역");
+		System.out.println("\t거래 종류\t거래자명\t출금 계좌\t입금 계좌\t거래 금액\t\t거래 일자");
+		
+		for (Transaction t : transactions) {
+			String transactionClass = null;
+			if (t.getTransactionClassId() == 1) {
+				transactionClass = "현금 입금";
+			} else if (t.getTransactionClassId() == 2) {
+				transactionClass = "현금 출금";
+			} else if (t.getTransactionClassId() == 3) {
+				transactionClass = "계좌 이체";
+			}
+			
+			System.out.print(t.getTransactionId() + "\t" + transactionClass + "\t" + t.getId() + "\t\t");
+			
+			if (t.getWithdrawAccountId() == 0) {
+				System.out.print("ATM 출금\t");
+			} else {
+				System.out.print(t.getWithdrawAccountId() + "\t\t");
+			}
+			if (t.getDepositAccountId() == 0) {
+				System.out.print("ATM 입금\t");
+			} else {
+				System.out.print(t.getDepositAccountId() + "\t\t");
+			}
+			System.out.print(won.format(t.getTransactionAmount()) + "원");
+			if (t.getTransactionAmount() >= 10000) {
+				System.out.print("\t\t");
+			} else {
+				System.out.print("\t\t\t");
+			}
+			System.out.println(t.getTransactionDate());
+		}
 	}
 }
