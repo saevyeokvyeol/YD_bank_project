@@ -51,8 +51,15 @@ public class CustomerTest {
 			System.out.println(loginUser.getName() + " 로그인 성공");
 		}
 
-		System.out.println("\n* 성공");
+		System.out.println("\n* 성공: 일반 고객");
 		controller.login(new Customer("yuda", "1234"));
+		loginUser = (Customer)session.getAttribute("loginUser");
+		if (loginUser != null) {
+			System.out.println(loginUser.getName() + " 로그인 성공");
+		}
+
+		System.out.println("\n* 성공: 관리자");
+		controller.login(new Customer("admin", "admin"));
 		loginUser = (Customer)session.getAttribute("loginUser");
 		if (loginUser != null) {
 			System.out.println(loginUser.getName() + " 로그인 성공");
@@ -77,7 +84,7 @@ public class CustomerTest {
 	public static void main(String[] args) {
 		CustomerTest test = new CustomerTest();
 //		test.signupTest();
-//		test.loginTest();
-		test.customerIntoTest();
+		test.loginTest();
+//		test.customerIntoTest();
 	}
 }

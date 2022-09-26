@@ -32,7 +32,12 @@ public class CustomerController {
 			Customer loginUser = customerService.login(customer);
 			
 			session.setAttribute("loginUser", loginUser);
-			new Menu().userMenu();
+			
+			if (loginUser.getId().equals("admin")) {
+				new Menu().adminMenu();
+			} else {
+				new Menu().userMenu();				
+			}
 		} catch (Exception e) {
 			FailView.printErrorMessage(e);
 //			e.printStackTrace();

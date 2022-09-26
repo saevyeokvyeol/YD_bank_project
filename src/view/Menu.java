@@ -146,6 +146,26 @@ public class Menu {
 		}
 	}
 	
+	public void adminMenu() {
+		while (run) {
+			System.out.println("\n-------------------------------------------------------------------");
+			System.out.println(" 관리자 메뉴 | 9. 로그아웃 | 0. 종료");
+			System.out.println("-------------------------------------------------------------------");
+			System.out.print("메뉴 선택 > ");
+
+			int select = Integer.parseInt(scanner.nextLine());
+			switch (select) {
+			case 1:
+				
+			case 9:
+				customerController.logout();
+				return;
+			case 0:
+				this.bankExit();
+			}
+		}
+	}
+	
 	public void bankExit() {
 		this.run = false;
 		System.out.println("\nYD뱅크를 종료합니다.");
