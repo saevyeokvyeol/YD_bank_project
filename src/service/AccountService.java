@@ -28,10 +28,10 @@ public interface AccountService {
 
 	/**
 	 * 계좌 번호로 계좌 검색
-	 * @param: String accountId
+	 * @param: int accountId
 	 * @return: Account
 	 * */
-	public Account findByAccountid(String accountId) throws SQLException;
+	public Account findByAccountid(int accountId) throws SQLException;
 
 	/**
 	 * 회원 아이디로 계좌 검색

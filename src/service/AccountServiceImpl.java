@@ -44,13 +44,13 @@ public class AccountServiceImpl implements AccountService {
 
 	/**
 	 * 계좌 번호로 계좌 검색
-	 * @param: String accountId
+	 * @param: int accountId
 	 * @return: Account
 	 * */
 	@Override
-	public Account findByAccountid(String accountId) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+	public Account findByAccountid(int accountId) throws SQLException {
+		Account account = accountDao.findByAccountid(accountId);
+		return account;
 	}
 
 	/**

@@ -246,7 +246,9 @@ public class Menu {
 				accountController.findAll();
 				break;
 			case 2:
-				
+				System.out.print("계좌 번호 입력 > ");
+				int accountId = Integer.parseInt(scanner.nextLine());
+				accountController.findByAccountId(accountId);
 				break;
 			case 9:
 				customerController.logout();

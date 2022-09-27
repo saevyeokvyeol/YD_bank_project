@@ -24,6 +24,12 @@ public class AccountTest {
 		accountController.findAll();
 	}
 	
+	public void findByAccountIdTest() {
+		accountController.findByAccountId(10000);
+		accountController.findByAccountId(10005);
+		accountController.findByAccountId(10010);
+	}
+	
 	public void findByIdTest() {
 		System.out.println("계좌가 하나도 없을 때");
 		util.login(new Customer("test", "test"));
@@ -38,7 +44,8 @@ public class AccountTest {
 		AccountTest test = new AccountTest();
 		
 //		test.insertTest();
-		test.findByIdTest();
-		test.findAllTest();
+//		test.findByIdTest();
+//		test.findAllTest();
+		test.findByAccountIdTest();
 	}
 }

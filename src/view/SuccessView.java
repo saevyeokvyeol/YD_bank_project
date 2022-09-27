@@ -92,6 +92,22 @@ public class SuccessView {
 		printAccounts(accounts);
 	}
 	
+	public static void printFindAccountByAccountId(int accountId, Account account) {
+		
+		System.out.print("\n< 계좌 번호 '" + accountId + "' 검색 결과: ");
+		if (account == null) {
+			System.out.println("입력한 계좌 번호와 일치하는 정보가 존재하지 않습니다 >");
+		} else {
+			System.out.println("총 " + 1 + "명>");
+			System.out.println("아이디\t계좌 번호\t잔액\t\t\t개설일\t\t최근 거래일");
+			System.out.print(account.getId() + "\t" + account.getAccountId() + "\t\t" + won.format(account.getBalance()) + "원\t");
+			if (account.getBalance() <= 10000000000L) {
+				System.out.print("\t");
+			}
+			System.out.println(getDate(account.getOpenDate()) + "\t" + getDate(account.getUpdateDate()));
+		}				
+	}
+	
 	public static void printFindAccountById(Customer customer, List<Account> accounts) {
 		System.out.println("\n< " + customer.getName() + " 님의 계좌 목록: 총 " + accounts.size() + "개 >");
 		printAccounts(accounts);

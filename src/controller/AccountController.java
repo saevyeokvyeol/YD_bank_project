@@ -51,4 +51,14 @@ public class AccountController {
 		}	
 	}
 	
+	public void findByAccountId(int accountId) {
+		try {
+			Account account = accountService.findByAccountid(accountId);
+			SuccessView.printFindAccountByAccountId(accountId, account);
+		} catch (Exception e) {
+			// e.printStackTrace();
+			FailView.printErrorMessage(e);
+		}
+	}
+	
 }
