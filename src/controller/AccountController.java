@@ -29,17 +29,26 @@ public class AccountController {
 			FailView.printErrorMessage(e);
 		}
 	}
+	
+	public void findAll() {
+		try {
+			List<Account> accounts = accountService.findAll();
+			SuccessView.printFindAccountAll(accounts);
+		} catch (Exception e) {
+			// e.printStackTrace();
+			FailView.printErrorMessage(e);
+		}
+	}
 
 	public void findById(boolean state) {
 		try {
 			Customer customer = (Customer)session.getAttribute("loginUser");
 			List<Account> accounts = accountService.findById(customer.getId(), state);
-			String message = "- " + customer.getName() + " 님의 계좌 목록";
-			SuccessView.printAccount(message, (Customer)session.getAttribute("loginUser"), accounts);
+			SuccessView.printFindAccountById((Customer)session.getAttribute("loginUser"), accounts);
 		} catch (SQLException e) {
 			// e.printStackTrace();
 			FailView.printErrorMessage(e);
-		}
-		
+		}	
 	}
+	
 }

@@ -108,8 +108,27 @@ public class AccountDaoImpl implements AccountDao {
 	 * */
 	@Override
 	public List<Account> findAll() throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		String sql = profile.getProperty("account.findAll");
+		List<Account> accounts = new ArrayList<>();
+		
+		try {
+			con = DbUtil.getConnection();
+			ps = con.prepareStatement(sql);
+			rs = ps.executeQuery();
+			
+			while (rs.next()) {
+				Account account = new Account(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getLong(4), rs.getString(5), rs.getString(6));
+				accounts.add(account);
+			}
+		} finally {
+			DbUtil.close(con, ps, rs);
+		}
+		
+		return accounts;
 	}
 
 	/**

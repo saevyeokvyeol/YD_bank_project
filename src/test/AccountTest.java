@@ -20,6 +20,10 @@ public class AccountTest {
 		util.delete("delete from account where id = 'test'");
 	}
 	
+	public void findAllTest() {
+		accountController.findAll();
+	}
+	
 	public void findByIdTest() {
 		System.out.println("계좌가 하나도 없을 때");
 		util.login(new Customer("test", "test"));
@@ -35,5 +39,6 @@ public class AccountTest {
 		
 //		test.insertTest();
 		test.findByIdTest();
+		test.findAllTest();
 	}
 }

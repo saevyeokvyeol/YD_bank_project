@@ -38,8 +38,8 @@ public class AccountServiceImpl implements AccountService {
 	 * */
 	@Override
 	public List<Account> findAll() throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		List<Account> accounts = accountDao.findAll();
+		return accounts;
 	}
 
 	/**

@@ -75,7 +75,7 @@ public class SuccessView {
 	
 	public static void printCustomerInfo(Customer customer) {
 
-		System.out.println("\n- " + customer.getName() + " 님의 상세 정보");
+		System.out.println("\n< " + customer.getName() + " 님의 상세 정보 >");
 		System.out.println("\n아이디: " + customer.getId());
 		System.out.println("\n이름: " + customer.getName());
 		System.out.println("전화 번호: " + getTel(customer.getTel()));
@@ -87,19 +87,26 @@ public class SuccessView {
 		}
 	}
 	
-	public static void printAccount(String message, Customer customer, List<Account> accounts) {
-		printMessage(message);
+	public static void printFindAccountAll(List<Account> accounts) {
+		System.out.println("\n< 전체 계좌 목록 : 총 " + accounts.size() + "개 >");
+		printAccounts(accounts);
+	}
+	
+	public static void printFindAccountById(Customer customer, List<Account> accounts) {
+		System.out.println("\n< " + customer.getName() + " 님의 계좌 목록: 총 " + accounts.size() + "개 >");
+		printAccounts(accounts);
+	}
+	
+	public static void printAccounts(List<Account> accounts) {
 		
 		if (accounts.size() == 0) {
-			System.out.println("개설된 계좌가 없습니다.\n계좌를 개설해주세요.");
+			System.out.println("계좌 목록이 존재하지 않습니다.");
 		} else {
-			System.out.println("계좌 번호\t잔액\t\t개설일\t\t최근 거래일");
+			System.out.println("아이디\t계좌 번호\t잔액\t\t\t개설일\t\t최근 거래일");
 			for (Account account : accounts) {
-				System.out.print(account.getAccountId() + "\t\t" + won.format(account.getBalance()));
-				if (account.getBalance() >= 100000) {
+				System.out.print(account.getId() + "\t" + account.getAccountId() + "\t\t" + won.format(account.getBalance()) + "원\t");
+				if (account.getBalance() <= 10000000000L) {
 					System.out.print("\t");
-				} else {
-					System.out.print("\t\t");
 				}
 				System.out.println(getDate(account.getOpenDate()) + "\t" + getDate(account.getUpdateDate()));
 			}

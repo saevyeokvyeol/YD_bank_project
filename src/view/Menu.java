@@ -163,6 +163,8 @@ public class Menu {
 			switch (select) {
 			case 1:
 				this.adminCustomerMenu();
+			case 2:
+				this.adminAccountMenu();
 			case 9:
 				return;
 			case 0:
@@ -225,6 +227,33 @@ public class Menu {
 			} else if (select == 0) {
 				this.bankExit();
 			} else {
+				System.out.println("올바르지 않은 메뉴를 선택하셨습니다.");
+			}
+		}
+	}
+	
+	/**
+	 * 계좌 관리 메뉴(관리자)
+	 * */
+	public void adminAccountMenu() {
+		while (run) {
+			System.out.println("\n[ 1. 전체 계좌 보기 | 2. 계좌 검색 | 9. 뒤로 가기 | 0. 종료 ]");
+			System.out.print("> ");
+
+			int select = Integer.parseInt(scanner.nextLine());
+			switch (select) {
+			case 1:
+				accountController.findAll();
+				break;
+			case 2:
+				
+				break;
+			case 9:
+				customerController.logout();
+				return;
+			case 0:
+				this.bankExit();
+			default:
 				System.out.println("올바르지 않은 메뉴를 선택하셨습니다.");
 			}
 		}
