@@ -5,12 +5,13 @@ import java.util.List;
 
 import dto.Account;
 import dto.Customer;
+import dto.Grade;
 import dto.Transaction;
 
 public class SuccessView {
 	private static DecimalFormat won = new DecimalFormat("#,###");
 	
-	public static String getTel(String tel) {
+	private static String getTel(String tel) {
 		StringBuffer sb = new StringBuffer();
 		sb.append(tel);
 		sb.insert(3, '-');
@@ -18,7 +19,7 @@ public class SuccessView {
 		return sb.toString();
 	}
 	
-	public static String getDate(String date) {
+	private static String getDate(String date) {
 		return date.substring(0, 10);
 	}
 	
@@ -26,10 +27,29 @@ public class SuccessView {
 		System.out.println("\n" + message);
 	}
 	
+	public static void printFindCustomerAll(List<Customer> customers) {
+		System.out.println("\n< YD뱅크 전체 회원 목록 : 총 " + customers.size() + "명 >");
+		printCustomers(customers);
+	}
+	
+	public static void printFindByGrade(Grade grade) {
+		System.out.println("\n< YD뱅크 " + grade.getGradeName() + " 회원 목록 : 총 " + grade.getCustomers().size() + "명 >");
+		printCustomers(grade.getCustomers());
+	}
+	
 	public static void printCustomers(List<Customer> customers) {
-		System.out.println("\n아이디\t이름\t가입일");
-		for (Customer c : customers) {
-			System.out.println(c.getId() + "\t" + c.getName() + "\t" + c.getSignupDate());
+		if (customers.size() == 0) {
+			System.out.println("고객 목록이 존재하지 않습니다.");
+		} else {
+			System.out.println("\n아이디\t이름\t전화번호\t등급\t\t가입일\t\t잔고");
+			for (Customer c : customers) {
+				String grade = c.getGrade().getGradeName();
+				System.out.print(c.getId() + "\t" + c.getName() + "\t" + getTel(c.getTel()) + "\t"+ grade + "\t");
+				if (grade.length() < 8) {
+					System.out.print("\t");
+				}
+				System.out.println(getDate(c.getSignupDate()) + "\t" + won.format(c.getTotalBalance()) + "원");
+			}			
 		}
 	}
 	

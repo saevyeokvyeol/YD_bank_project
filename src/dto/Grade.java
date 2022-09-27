@@ -1,11 +1,15 @@
 package dto;
 
+import java.util.List;
+
 public class Grade {
 	private int gradeId;
 	private String gradeName;
 	private Long gradeMinimum;
 	private Long gradeMaximum;
 	private int charge;
+	
+	private List<Customer> customers;
 	
 	public Grade() {}
 
@@ -36,5 +40,13 @@ public class Grade {
 
 	public int getCharge() {
 		return charge;
+	}
+
+	public List<Customer> getCustomers() {
+		return customers;
+	}
+
+	public void setCustomers(List<Customer> customers) {
+		this.customers = customers;
 	}
 }

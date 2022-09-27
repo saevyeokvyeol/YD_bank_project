@@ -67,7 +67,7 @@ public interface CustomerDao {
 	 * @param: int gradeId
 	 * @return: List<Customer>
 	 * */
-	public List<Customer> findByGrade(int grade) throws SQLException;
+	public List<Customer> findByGrade(int gradeId) throws SQLException;
 	
 	/**
 	 * 등급 아이디로 회원 등급 검색

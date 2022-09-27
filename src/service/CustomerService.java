@@ -62,5 +62,5 @@ public interface CustomerService {
 	 * @param: int gradeId
 	 * @return: List<Customer>
 	 * */
-	public List<Customer> findByGrade(int grade) throws SQLException;
+	public Grade findByGrade(int grade) throws SQLException, NotExistRecodeException;
 }

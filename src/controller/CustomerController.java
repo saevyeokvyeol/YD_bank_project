@@ -3,6 +3,7 @@ package controller;
 import java.util.List;
 
 import dto.Customer;
+import dto.Grade;
 import exception.DiscrepancyException;
 import exception.DuplicationException;
 import service.CustomerService;
@@ -29,13 +30,11 @@ public class CustomerController {
 	
 	public void login(Customer customer) {
 		try {
-			Customer loginUser = customerService.login(customer);
-			
-			session.setAttribute("loginUser", loginUser);
-			
-			if (loginUser.getId().equals("admin")) {
+			if (customer.getId().equals("admin") && customer.getPassword().equals("admin")) {
 				new Menu().adminMenu();
 			} else {
+				Customer loginUser = customerService.login(customer);
+				session.setAttribute("loginUser", loginUser);
 				new Menu().userMenu();				
 			}
 		} catch (Exception e) {
@@ -54,6 +53,16 @@ public class CustomerController {
 			SuccessView.printCustomers(customers);
 		} catch (Exception e) {
 			FailView.printErrorMessage(e);
+		}
+	}
+	
+	public void findByGrade(int gradeId) {
+		try {
+			Grade grade = customerService.findByGrade(gradeId);
+			SuccessView.printFindByGrade(grade);
+		} catch (Exception e) {
+			FailView.printErrorMessage(e);
+			e.printStackTrace();
 		}
 	}
 	

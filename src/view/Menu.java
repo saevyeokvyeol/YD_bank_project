@@ -7,25 +7,22 @@ import controller.CustomerController;
 import controller.TransactionController;
 import dto.Customer;
 import dto.Transaction;
-import service.Bank;
-import service.BankImpl;
-import session.Session;
 
 public class Menu {
 	private Scanner scanner = new Scanner(System.in);
-	private Bank bank = new BankImpl();
 	private CustomerController customerController = new CustomerController();
 	private AccountController accountController = new AccountController();
 	private TransactionController transactionController = new TransactionController();
 	private boolean run = true;
 	
+	/**
+	 * 메인 메뉴
+	 * */
 	public void mainMenu() {
 		while(run) {
-			System.out.println("\n-----------------------------------");
-			System.out.println(" 1. 로그인 | 2. 회원가입 | 0. 종료");
-			System.out.println("-----------------------------------");
+			System.out.println("\n[ 1. 로그인 | 2. 회원가입 | 0. 종료 ]");
 
-			System.out.print("메뉴 선택 > ");
+			System.out.print("> ");
 			
 			int select = Integer.parseInt(scanner.nextLine());
 			
@@ -61,12 +58,13 @@ public class Menu {
 		}
 	}
 	
+	/**
+	 * 고객 메뉴
+	 * */
 	public void userMenu() {
 		while (run) {
-			System.out.println("\n---------------------------------------------------------------------------");
-			System.out.println(" 1. 거래하기 | 2. 내 정보 확인 | 3. 내 계좌 확인 | 4. 최근 거래 확인 | 4. 신규 계좌 생성 | 9. 로그아웃 | 0. 종료");
-			System.out.println("---------------------------------------------------------------------------");
-			System.out.print("메뉴 선택 > ");
+			System.out.println("\n[ 1. 거래하기 | 2. 내 정보 확인 | 3. 내 계좌 확인 | 4. 최근 거래 확인 | 4. 신규 계좌 생성 | 9. 로그아웃 | 0. 종료 ]");
+			System.out.print("> ");
 
 			int select = Integer.parseInt(scanner.nextLine());
 			
@@ -92,12 +90,13 @@ public class Menu {
 		}
 	}
 	
+	/**
+	 * 거래 메뉴
+	 * */
 	public void transactionMenu() {
 		while (run) {
-			System.out.println("\n-------------------------------------------------------------------");
-			System.out.println(" 1. 현금 입금 | 2. 현금 출금 | 3. 계좌 이체 | 9. 뒤로 가기 | 0. 종료");
-			System.out.println("-------------------------------------------------------------------");
-			System.out.print("메뉴 선택 > ");
+			System.out.println("\n[ 1. 현금 입금 | 2. 현금 출금 | 3. 계좌 이체 | 9. 뒤로 가기 | 0. 종료 ]");
+			System.out.print("> ");
 
 			int select = Integer.parseInt(scanner.nextLine());
 			int depositAccount = 0;
@@ -146,17 +145,48 @@ public class Menu {
 		}
 	}
 	
+	/**
+	 * 관리자 메뉴
+	 * */
 	public void adminMenu() {
 		while (run) {
-			System.out.println("\n-------------------------------------------------------------------");
-			System.out.println(" 관리자 메뉴 | 9. 로그아웃 | 0. 종료");
-			System.out.println("-------------------------------------------------------------------");
-			System.out.print("메뉴 선택 > ");
+			System.out.println("\n[ 1. 회원 관리 | 2. 계좌 관리 | 3. 거래 관리 | 4. 통계 보기 | 9. 로그아웃 | 0. 종료 ]");
+			System.out.print("> ");
 
 			int select = Integer.parseInt(scanner.nextLine());
 			switch (select) {
 			case 1:
-				
+				this.adminCustomerMenu();
+			case 9:
+				return;
+			case 0:
+				this.bankExit();
+			}
+		}
+	}
+	
+	/**
+	 * 회원 관리 메뉴(관리자)
+	 * */
+	public void adminCustomerMenu() {
+		while (run) {
+			System.out.println("\n[ 1. 전체 회원 보기 | 2. 등급별 회원 보기 | 3. 회원 검색 | 9. 뒤로 가기 | 0. 종료 ]");
+			System.out.print("> ");
+
+			int select = Integer.parseInt(scanner.nextLine());
+			switch (select) {
+			case 1:
+				customerController.findAll();
+				break;
+			case 2:
+				System.out.println("[ 1. General | 2. Family | 3. Royal | 4. Honor | 5. Prestige ]");
+				System.out.print("> ");
+				int gradeId = Integer.parseInt(scanner.nextLine());
+				customerController.findByGrade(gradeId);
+				break;
+			case 3:
+				customerController.findAll();
+				break;
 			case 9:
 				customerController.logout();
 				return;

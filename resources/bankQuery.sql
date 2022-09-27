@@ -110,6 +110,6 @@ select * from account where id = 'yuda' and state_id = 1 order by open_date;
 
 select id from account where account_id=10000;
 
-
+select * from customer where grade_id = 6 order by total_balance desc;
 update customer
 set grade_id = (select grade_id from grade where 0 between GRADE_MINIMUM and GRADE_MAXIMUM) where id = 'test';

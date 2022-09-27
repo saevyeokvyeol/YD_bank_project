@@ -81,10 +81,23 @@ public class CustomerTest {
 		controller.customerInfo("mina");
 	}
 	
+	public void findAllTest() {
+		controller.findAll();
+	}
+	
+	public void findByGrade() {
+		controller.findByGrade(1);
+		controller.findByGrade(2);
+		controller.findByGrade(3);
+		controller.findByGrade(4);
+		controller.findByGrade(5);
+	}
 	public static void main(String[] args) {
 		CustomerTest test = new CustomerTest();
 //		test.signupTest();
-		test.loginTest();
+//		test.loginTest();
 //		test.customerIntoTest();
+//		test.findAllTest();
+		test.findByGrade();
 	}
 }

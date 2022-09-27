@@ -111,9 +111,20 @@ public class CustomerServiceImpl implements CustomerService {
 	 * @return: List<Customer>
 	 * */
 	@Override
-	public List<Customer> findByGrade(int grade) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+	public Grade findByGrade(int gradeId) throws SQLException, NotExistRecodeException {
+		Grade grade = customerDao.findByGradeId(++gradeId);
+		
+		if (grade == null) {
+			throw new NotExistRecodeException("해당하는 등급을 찾을 수 없습니다.\n다시 입력해주세요.");
+		}
+		
+		List<Customer> customers = customerDao.findByGrade(gradeId);
+		for (Customer c : customers) {
+			c.setGrade(grade);
+		}
+		
+		grade.setCustomers(customers);
+		return grade;
 	}
 	
 	

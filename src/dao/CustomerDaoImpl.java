@@ -99,6 +99,8 @@ public class CustomerDaoImpl implements CustomerDao {
 			
 			while (rs.next()) {
 				Customer customer = new Customer(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5), rs.getString(6), rs.getString(7), rs.getLong(8));
+				Grade grade = findByGradeId(customer.getGradeId());
+				customer.setGrade(grade);
 				customers.add(customer);
 			}
 		} finally {
@@ -138,9 +140,30 @@ public class CustomerDaoImpl implements CustomerDao {
 	 * @return: List<Customer>
 	 * */
 	@Override
-	public List<Customer> findByGrade(int grade) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Customer> findByGrade(int gradeId) throws SQLException {
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		String sql = profile.getProperty("customer.findByGrade");
+		List<Customer> customers = new ArrayList<>();
+		
+		try {
+			con = DbUtil.getConnection();
+			
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, gradeId);
+			
+			rs = ps.executeQuery();
+			
+			while (rs.next()) {
+				Customer customer = new Customer(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5), rs.getString(6), rs.getString(7), rs.getLong(8));
+				customers.add(customer);
+			}
+		} finally {
+			DbUtil.close(con, ps, rs);
+		}
+		return customers;
 	}
 
 	/**
