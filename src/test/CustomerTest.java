@@ -92,12 +92,21 @@ public class CustomerTest {
 		controller.findByGrade(4);
 		controller.findByGrade(5);
 	}
+	
+	public void findByKeyword() {
+		controller.findByKeyword(1, "y");
+		controller.findByKeyword(2, "김");
+		controller.findByKeyword(3, "0000");
+		controller.findByKeyword(4, "10005");
+	}
+	
 	public static void main(String[] args) {
 		CustomerTest test = new CustomerTest();
 //		test.signupTest();
 //		test.loginTest();
 //		test.customerIntoTest();
 //		test.findAllTest();
-		test.findByGrade();
+//		test.findByGrade();
+		test.findByKeyword();
 	}
 }

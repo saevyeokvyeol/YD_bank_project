@@ -62,6 +62,16 @@ public class CustomerController {
 			SuccessView.printFindByGrade(grade);
 		} catch (Exception e) {
 			FailView.printErrorMessage(e);
+//			e.printStackTrace();
+		}
+	}
+	
+	public void findByKeyword(int field, String keyword) {
+		try {
+			List<Customer> customers = customerService.findByKeyword(field, keyword);
+			SuccessView.printFindByKeyword(field, keyword, customers);
+		} catch (Exception e) {
+			FailView.printErrorMessage(e);
 			e.printStackTrace();
 		}
 	}

@@ -54,6 +54,8 @@ public class Menu {
 				break;
 			case 0:
 				this.bankExit();
+			default:
+				System.out.println("올바르지 않은 메뉴를 선택하셨습니다.");
 			}
 		}
 	}
@@ -86,6 +88,8 @@ public class Menu {
 				return;
 			case 0:
 				this.bankExit();
+			default:
+				System.out.println("올바르지 않은 메뉴를 선택하셨습니다.");
 			}
 		}
 	}
@@ -141,6 +145,8 @@ public class Menu {
 				return;
 			case 0:
 				this.bankExit();
+			default:
+				System.out.println("올바르지 않은 메뉴를 선택하셨습니다.");
 			}
 		}
 	}
@@ -161,6 +167,8 @@ public class Menu {
 				return;
 			case 0:
 				this.bankExit();
+			default:
+				System.out.println("올바르지 않은 메뉴를 선택하셨습니다.");
 			}
 		}
 	}
@@ -185,13 +193,39 @@ public class Menu {
 				customerController.findByGrade(gradeId);
 				break;
 			case 3:
-				customerController.findAll();
+				this.adminCustomerSearchMenu();
 				break;
 			case 9:
 				customerController.logout();
 				return;
 			case 0:
 				this.bankExit();
+			default:
+				System.out.println("올바르지 않은 메뉴를 선택하셨습니다.");
+			}
+		}
+	}
+	
+	/**
+	 * 키워드로 회원 검색 메뉴(관리자)
+	 * */
+	public void adminCustomerSearchMenu() {
+		while (run) {
+			System.out.println("\n[ 1. 아이디로 검색 | 2. 이름으로 검색 | 3. 전화번호로 검색 | 4. 계좌 번호로 검색 | 9. 뒤로 가기 | 0. 종료]");
+			System.out.print("> ");
+
+			int select = Integer.parseInt(scanner.nextLine());
+			if (select > 0 && select < 5) {
+				System.out.print("검색 키워드 입력 > ");
+				String keyword = scanner.nextLine();
+				customerController.findByKeyword(select, keyword);
+				return;
+			} else if (select == 9) {
+				return;
+			} else if (select == 0) {
+				this.bankExit();
+			} else {
+				System.out.println("올바르지 않은 메뉴를 선택하셨습니다.");
 			}
 		}
 	}

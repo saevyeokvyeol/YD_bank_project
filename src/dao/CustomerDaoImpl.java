@@ -112,13 +112,48 @@ public class CustomerDaoImpl implements CustomerDao {
 	/**
 	 * 키워드로 회원 검색
 	 * : 회원 테이블에 있는 회원 중 키워드 검색에 걸리는 회원을 가져옴
-	 * @param: String field(검색 컬럼), String keyword(검색 키워드)
+	 * @param: int field(검색 컬럼), String keyword(검색 키워드)
 	 * @return: List<Customer>
 	 * */
 	@Override
-	public List<Customer> findByKeyword(String field, String keyword) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Customer> findByKeyword(int field, String keyword) throws SQLException {
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		String sql = null;
+		switch (field) {
+		case 1:
+			sql = profile.getProperty("customer.findByKeywordId");
+			break;
+		case 2:
+			sql = profile.getProperty("customer.findByKeywordName");
+			break;
+		case 3:
+			sql = profile.getProperty("customer.findByKeywordTel");
+			break;
+		}
+		
+		List<Customer> customers = new ArrayList<>();
+		
+		try {
+			con = DbUtil.getConnection();
+			
+			ps = con.prepareStatement(sql);
+			ps.setString(1, "%" + keyword + "%");
+			
+			rs = ps.executeQuery();
+			
+			while (rs.next()) {
+				Customer customer = new Customer(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5), rs.getString(6), rs.getString(7), rs.getLong(8));
+				Grade grade = findByGradeId(customer.getGradeId());
+				customer.setGrade(grade);
+				customers.add(customer);
+			}
+		} finally {
+			DbUtil.close(con, ps, rs);
+		}
+		return customers;
 	}
 
 	/**
@@ -129,8 +164,30 @@ public class CustomerDaoImpl implements CustomerDao {
 	 * */
 	@Override
 	public Customer findByAccountId(int accountId) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		String sql = profile.getProperty("customer.findByKeywordAccount");
+		Customer customer = null;
+		
+		try {
+			con = DbUtil.getConnection();
+			
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, accountId);
+			
+			rs = ps.executeQuery();
+			
+			if (rs.next()) {
+				customer = new Customer(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5), rs.getString(6), rs.getString(7), rs.getLong(8));
+				Grade grade = findByGradeId(customer.getGradeId());
+				customer.setGrade(grade);
+			}
+		} finally {
+			DbUtil.close(con, ps, rs);
+		}
+		return customer;
 	}
 
 	/**

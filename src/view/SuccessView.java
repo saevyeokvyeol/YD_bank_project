@@ -37,6 +37,26 @@ public class SuccessView {
 		printCustomers(grade.getCustomers());
 	}
 	
+	public static void printFindByKeyword(int field, String keyword, List<Customer> customers) {
+		String searchField = null;
+		switch (field) {
+		case 1:
+			searchField = "아이디";
+			break;
+		case 2:
+			searchField = "이름";
+			break;
+		case 3:
+			searchField = "전화번호";
+			break;
+		case 4:
+			searchField = "계좌번호";
+			break;
+		}
+		System.out.println("\n< " + searchField + " '" + keyword + "' 검색 결과: 총 " + customers.size() + "명>");
+		printCustomers(customers);
+	}
+	
 	public static void printCustomers(List<Customer> customers) {
 		if (customers.size() == 0) {
 			System.out.println("고객 목록이 존재하지 않습니다.");

@@ -43,18 +43,10 @@ public interface CustomerService {
 	/**
 	 * 키워드로 회원 검색
 	 * : 회원 테이블에 있는 회원 중 키워드 검색에 걸리는 회원을 가져옴
-	 * @param: String field(검색 컬럼), String keyword(검색 키워드)
+	 * @param: int field(검색 컬럼), String keyword(검색 키워드)
 	 * @return: List<Customer>
 	 * */
-	public List<Customer> findByKeyword(String field, String keyword) throws SQLException;
-	
-	/**
-	 * 계좌로 회원 검색
-	 * : 특정 계좌를 소유하고 있는 회원 검색
-	 * @param: int accountId
-	 * @return: Customer
-	 * */
-	public Customer findByAccountId(int accountId) throws SQLException, NotExistRecodeException;
+	public List<Customer> findByKeyword(int field, String keyword) throws SQLException, Exception;
 	
 	/**
 	 * 등급별 회원 검색
