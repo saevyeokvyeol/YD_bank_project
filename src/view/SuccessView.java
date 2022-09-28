@@ -1,6 +1,7 @@
 package view;
 
 import java.text.DecimalFormat;
+import java.time.LocalDate;
 import java.util.List;
 
 import dto.Account;
@@ -164,8 +165,18 @@ public class SuccessView {
 		printTransactions(transactions);
 	}
 	
+	public static void printTransactionsFindByAccountId(int accountId, List<Transaction> transactions) {
+		System.out.println("\n< 계좌 번호 '" + accountId + "' 거래 내역 >");
+		printTransactions(transactions);
+	}
+	
 	public static void printTransactionsFindByTransactionId(int transactionId, List<Transaction> transactions) {
 		System.out.println("\n< 거래 번호 '" + transactionId + "' 거래 내역 >");
+		printTransactions(transactions);
+	}
+	
+	public static void printFindTransactionByToday(List<Transaction> transactions) {
+		System.out.println("\n< " + LocalDate.now() + " 거래 내역 >");
 		printTransactions(transactions);
 	}
 	

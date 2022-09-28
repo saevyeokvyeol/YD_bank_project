@@ -170,8 +170,27 @@ public class TransactionDaoImpl implements TransactionDao {
 	 * */
 	@Override
 	public List<Transaction> findByAccountId(int accountId) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		String sql = profile.getProperty("transaction.findByAccountId");
+		List<Transaction> transactions = new ArrayList<>();
+		try {
+			con = DbUtil.getConnection();
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, accountId);
+			ps.setInt(2, accountId);
+			rs = ps.executeQuery();
+			
+			while (rs.next()) {
+				Transaction transaction = new Transaction(rs.getLong(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getInt(5), rs.getLong(6), rs.getString(7));
+				transactions.add(transaction);
+			}
+		} finally {
+			DbUtil.close(con, ps, rs);
+		}
+		return transactions;
 	}
 
 	/**
@@ -200,5 +219,33 @@ public class TransactionDaoImpl implements TransactionDao {
 			DbUtil.close(con, ps, rs);
 		}
 		return transaction;
+	}
+
+	/**
+	 * 오늘 거래 검색
+	 * @return: List<Transaction>
+	 * */
+	@Override
+	public List<Transaction> findByToday() throws SQLException {
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		String sql = profile.getProperty("transaction.findByToday");
+		List<Transaction> transactions = new ArrayList<>();
+		
+		try {
+			con = DbUtil.getConnection();
+			ps = con.prepareStatement(sql);
+			rs = ps.executeQuery();
+			
+			while (rs.next()) {
+				Transaction transaction = new Transaction(rs.getLong(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getInt(5), rs.getLong(6), rs.getString(7));
+				transactions.add(transaction);
+			}
+		} finally {
+			DbUtil.close(con, ps, rs);
+		}
+		return transactions;
 	}
 }

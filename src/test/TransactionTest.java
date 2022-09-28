@@ -22,6 +22,7 @@ public class TransactionTest {
 	}
 	
 	public void findByIdTest() {
+		controller.findById("yuda");
 		util.login(new Customer("test", "test"));
 		controller.findById(null);
 	}
@@ -31,11 +32,24 @@ public class TransactionTest {
 		controller.findByTransactionId(22);
 	}
 	
+	public void findByTodayTest() {
+		controller.findByToday();
+	}
+	
+	public void findByAccountIdTest() {
+		controller.findByAccountId(1000);
+		controller.findByAccountId(10000);
+		controller.findByAccountId(10001);
+		controller.findByAccountId(10009);
+	}
+	
 	public static void main(String[] args) {
 		TransactionTest test = new TransactionTest();
 //		test.insertTransactionTest();
 //		test.findByIdTest();
 //		test.findAllTest();
-		test.findByTransactionIdTest();
+//		test.findByTransactionIdTest();
+//		test.findByTodayTest();
+		test.findByAccountIdTest();
 	}
 }

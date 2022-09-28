@@ -38,4 +38,10 @@ public interface TransactionService {
 	 * @return: Transaction
 	 * */
 	public Transaction findByTransactionId(int transactionId) throws SQLException;
+	
+	/**
+	 * 오늘 거래 검색
+	 * @return: List<Transaction>
+	 * */
+	public List<Transaction> findByToday() throws SQLException;
 }

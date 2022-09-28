@@ -3,8 +3,10 @@ package service;
 import java.sql.SQLException;
 import java.util.List;
 
+import dao.AccountDaoImpl;
 import dao.TransactionDao;
 import dao.TransactionDaoImpl;
+import dto.Account;
 import dto.Transaction;
 
 public class TransactionServiceImpl implements TransactionService {
@@ -49,8 +51,11 @@ public class TransactionServiceImpl implements TransactionService {
 	 * */
 	@Override
 	public List<Transaction> findByAccountId(int accountId) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		Account account = new AccountDaoImpl().findByAccountid(accountId);
+		if (account == null) throw new SQLException(accountId + "에 해당하는 계좌가 존재하지 않습니다.");
+		
+		List<Transaction> transactions = transactionDao.findByAccountId(accountId);
+		return transactions;
 	}
 
 	/**
@@ -62,5 +67,14 @@ public class TransactionServiceImpl implements TransactionService {
 	public Transaction findByTransactionId(int transactionId) throws SQLException {
 		Transaction transaction = transactionDao.findByTransactionId(transactionId);
 		return transaction;
+	}
+
+	/**
+	 * 오늘 거래 검색
+	 * @return: List<Transaction>
+	 * */
+	@Override
+	public List<Transaction> findByToday() throws SQLException {
+		return transactionDao.findByToday();
 	}
 }
