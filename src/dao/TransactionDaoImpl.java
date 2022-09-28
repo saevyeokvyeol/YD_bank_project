@@ -177,23 +177,28 @@ public class TransactionDaoImpl implements TransactionDao {
 	/**
 	 * 거래 아이디로 거래 검색
 	 * @param: int transactionId(거래 번호)
-	 * @return: List<Transaction>
+	 * @return: Transaction
 	 * */
 	@Override
-	public List<Transaction> findByTransactionId(int transactionId) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+	public Transaction findByTransactionId(int transactionId) throws SQLException {
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		String sql = profile.getProperty("transaction.findByTransactionId");
+		Transaction transaction = null;
+		try {
+			con = DbUtil.getConnection();
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, transactionId);
+			rs = ps.executeQuery();
+			
+			if (rs.next()) {
+				transaction = new Transaction(rs.getLong(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getInt(5), rs.getLong(6), rs.getString(7));
+			}
+		} finally {
+			DbUtil.close(con, ps, rs);
+		}
+		return transaction;
 	}
-
-	/**
-	 * 거래 분류별 거래 검색
-	 * @param: int findByTransactionClassId(거래 번호)
-	 * @return: List<Transaction>
-	 * */
-	@Override
-	public List<Transaction> findByTransactionClassId(int findByTransactionClassId) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

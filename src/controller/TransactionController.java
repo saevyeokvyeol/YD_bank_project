@@ -1,5 +1,6 @@
 package controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import dto.Customer;
@@ -49,6 +50,19 @@ public class TransactionController {
 			}
 			List<Transaction> transactions = transactionService.findById(id);
 			SuccessView.printTransactionsFindById(customer, transactions);
+		} catch (Exception e) {
+			FailView.printErrorMessage(e);
+		}
+	}
+	
+
+	
+	public void findByTransactionId(int transactionId) {
+		try {
+			List<Transaction> transactions = new ArrayList<>();
+			Transaction transaction = transactionService.findByTransactionId(transactionId);
+			if (transaction != null) transactions.add(transaction);
+			SuccessView.printTransactionsFindByTransactionId(transactionId, transactions);
 		} catch (Exception e) {
 			FailView.printErrorMessage(e);
 		}

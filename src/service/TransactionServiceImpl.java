@@ -56,23 +56,11 @@ public class TransactionServiceImpl implements TransactionService {
 	/**
 	 * 거래 아이디로 거래 검색
 	 * @param: int transactionId(거래 번호)
-	 * @return: List<Transaction>
+	 * @return: Transaction
 	 * */
 	@Override
-	public List<Transaction> findByTransactionId(int transactionId) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+	public Transaction findByTransactionId(int transactionId) throws SQLException {
+		Transaction transaction = transactionDao.findByTransactionId(transactionId);
+		return transaction;
 	}
-
-	/**
-	 * 거래 분류별 거래 검색
-	 * @param: int transactionClassId(거래 번호)
-	 * @return: List<Transaction>
-	 * */
-	@Override
-	public List<Transaction> findByTransactionClassId(int transactionClassId) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

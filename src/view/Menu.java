@@ -280,7 +280,7 @@ public class Menu {
 	 * */
 	public void adminTransactionMenu() {
 		while (run) {
-			System.out.println("\n[ 1. 전체 거래 보기 | 2. 일일 거래 보기 | 3. 거래 검색 | 9. 뒤로 가기 | 0. 종료 ]");
+			System.out.println("\n[ 1. 전체 거래 보기 | 2. 일일 거래 보기 | 3. 회원별 거래 보기 | 4. 거래 검색 | 9. 뒤로 가기 | 0. 종료 ]");
 			System.out.print("> ");
 
 			int select = Integer.parseInt(scanner.nextLine());
@@ -291,8 +291,11 @@ public class Menu {
 			case 2:
 				break;
 			case 3:
+				break;
+			case 4:
 				System.out.print("거래 번호 입력 > ");
 				int transactionId = Integer.parseInt(scanner.nextLine());
+				transactionController.findByTransactionId(transactionId);
 				break;
 			case 9:
 				customerController.logout();

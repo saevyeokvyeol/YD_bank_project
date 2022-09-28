@@ -37,14 +37,7 @@ public interface TransactionDao {
 	/**
 	 * 거래 아이디로 거래 검색
 	 * @param: int transactionId(거래 번호)
-	 * @return: List<Transaction>
+	 * @return: Transaction
 	 * */
-	public List<Transaction> findByTransactionId(int transactionId) throws SQLException;
-	
-	/**
-	 * 거래 분류별 거래 검색
-	 * @param: int findByTransactionClassId(거래 번호)
-	 * @return: List<Transaction>
-	 * */
-	public List<Transaction> findByTransactionClassId(int findByTransactionClassId) throws SQLException;
+	public Transaction findByTransactionId(int transactionId) throws SQLException;
 }

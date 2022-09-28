@@ -155,47 +155,56 @@ public class SuccessView {
 	}
 	
 	public static void printfindTransactionAll(List<Transaction> transactions) {
-		System.out.println("< YD뱅크 전체 거래 내역: 총" + transactions.size() + " 건 >");
+		System.out.println("\n< YD뱅크 전체 거래 내역: 총 " + transactions.size() + "건 >");
 		printTransactions(transactions);
 	}
 	
 	public static void printTransactionsFindById(Customer customer, List<Transaction> transactions) {
-		System.out.println("< " + customer.getName() + " 님의 거래 내역 >");
+		System.out.println("\n< " + customer.getName() + " 님의 거래 내역 >");
+		printTransactions(transactions);
+	}
+	
+	public static void printTransactionsFindByTransactionId(int transactionId, List<Transaction> transactions) {
+		System.out.println("\n< 거래 번호 '" + transactionId + "' 거래 내역 >");
 		printTransactions(transactions);
 	}
 	
 	public static void printTransactions(List<Transaction> transactions) {
-		System.out.println("\t거래 종류\t거래자명\t출금 계좌\t입금 계좌\t거래 금액\t\t거래 일자");
-		
-		for (Transaction t : transactions) {
-			String transactionClass = null;
-			if (t.getTransactionClassId() == 1) {
-				transactionClass = "현금 입금";
-			} else if (t.getTransactionClassId() == 2) {
-				transactionClass = "현금 출금";
-			} else if (t.getTransactionClassId() == 3) {
-				transactionClass = "계좌 이체";
-			}
+		if (transactions.size() == 0) {
+			System.out.println("거래 내역이 존재하지 않습니다.");
+		} else {
+			System.out.println("\t거래 종류\t거래자명\t출금 계좌\t입금 계좌\t거래 금액\t\t거래 일자");
 			
-			System.out.print(t.getTransactionId() + "\t" + transactionClass + "\t" + t.getId() + "\t\t");
-			
-			if (t.getWithdrawAccountId() == 0) {
-				System.out.print("ATM 출금\t");
-			} else {
-				System.out.print(t.getWithdrawAccountId() + "\t\t");
+			for (Transaction t : transactions) {
+				String transactionClass = null;
+				if (t.getTransactionClassId() == 1) {
+					transactionClass = "현금 입금";
+				} else if (t.getTransactionClassId() == 2) {
+					transactionClass = "현금 출금";
+				} else if (t.getTransactionClassId() == 3) {
+					transactionClass = "계좌 이체";
+				}
+				
+				System.out.print(t.getTransactionId() + "\t" + transactionClass + "\t" + t.getId() + "\t\t");
+				
+				if (t.getWithdrawAccountId() == 0) {
+					System.out.print("ATM 출금\t");
+				} else {
+					System.out.print(t.getWithdrawAccountId() + "\t\t");
+				}
+				if (t.getDepositAccountId() == 0) {
+					System.out.print("ATM 입금\t");
+				} else {
+					System.out.print(t.getDepositAccountId() + "\t\t");
+				}
+				System.out.print(won.format(t.getTransactionAmount()) + "원");
+				if (t.getTransactionAmount() >= 10000) {
+					System.out.print("\t\t");
+				} else {
+					System.out.print("\t\t\t");
+				}
+				System.out.println(t.getTransactionDate());
 			}
-			if (t.getDepositAccountId() == 0) {
-				System.out.print("ATM 입금\t");
-			} else {
-				System.out.print(t.getDepositAccountId() + "\t\t");
-			}
-			System.out.print(won.format(t.getTransactionAmount()) + "원");
-			if (t.getTransactionAmount() >= 10000) {
-				System.out.print("\t\t");
-			} else {
-				System.out.print("\t\t\t");
-			}
-			System.out.println(t.getTransactionDate());
 		}
 	}
 }

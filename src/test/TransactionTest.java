@@ -17,19 +17,25 @@ public class TransactionTest {
 		controller.insertTransaction(new Transaction(0, 10008, 2, (long) 3000));
 	}
 	
-	public void findAll() {
+	public void findAllTest() {
 		controller.findAll();
 	}
 	
-	public void findById() {
+	public void findByIdTest() {
 		util.login(new Customer("test", "test"));
 		controller.findById(null);
+	}
+	
+	public void findByTransactionIdTest() {
+		controller.findByTransactionId(1);
+		controller.findByTransactionId(22);
 	}
 	
 	public static void main(String[] args) {
 		TransactionTest test = new TransactionTest();
 //		test.insertTransactionTest();
-//		test.findById();
-		test.findAll();
+//		test.findByIdTest();
+//		test.findAllTest();
+		test.findByTransactionIdTest();
 	}
 }
