@@ -101,6 +101,8 @@ CREATE SEQUENCE TRANSACTION_ID_SEQ;
 
 insert into transaction values(transaction_id_seq.nextval, 입금, 출금, 분류, 금액, sysdate);
 
+select * from transaction order by transaction_date desc;
+
 COMMIT;
 
 select * from grade where grade_id = 1;

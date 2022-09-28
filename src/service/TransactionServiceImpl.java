@@ -28,8 +28,7 @@ public class TransactionServiceImpl implements TransactionService {
 	 * */
 	@Override
 	public List<Transaction> findAll() throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		return transactionDao.findAll();
 	}
 
 	/**

@@ -112,8 +112,25 @@ public class TransactionDaoImpl implements TransactionDao {
 	 * */
 	@Override
 	public List<Transaction> findAll() throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		String sql = profile.getProperty("transaction.findAll");
+		List<Transaction> transactions = new ArrayList<>();
+		try {
+			con = DbUtil.getConnection();
+			ps = con.prepareStatement(sql);
+			rs = ps.executeQuery();
+			
+			while (rs.next()) {
+				Transaction transaction = new Transaction(rs.getLong(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getInt(5), rs.getLong(6), rs.getString(7));
+				transactions.add(transaction);
+			}
+		} finally {
+			DbUtil.close(con, ps);
+		}
+		return transactions;
 	}
 
 	/**

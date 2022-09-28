@@ -249,19 +249,50 @@ public class Menu {
 			System.out.print("> ");
 
 			int select = Integer.parseInt(scanner.nextLine());
+			int accountId = 0;
 			switch (select) {
 			case 1:
 				accountController.findAll();
 				break;
 			case 2:
 				System.out.print("계좌 번호 입력 > ");
-				int accountId = Integer.parseInt(scanner.nextLine());
+				accountId = Integer.parseInt(scanner.nextLine());
 				accountController.findByAccountId(accountId);
 				break;
 			case 3:
 				System.out.print("계좌 번호 입력 > ");
-				int accountId = Integer.parseInt(scanner.nextLine());
+				accountId = Integer.parseInt(scanner.nextLine());
 				accountController.updateClose(accountId);
+				break;
+			case 9:
+				customerController.logout();
+				return;
+			case 0:
+				this.bankExit();
+			default:
+				System.out.println("올바르지 않은 메뉴를 선택하셨습니다.");
+			}
+		}
+	}
+	
+	/**
+	 * 거래 관리 메뉴(관리자)
+	 * */
+	public void adminTransactionMenu() {
+		while (run) {
+			System.out.println("\n[ 1. 전체 거래 보기 | 2. 일일 거래 보기 | 3. 거래 검색 | 9. 뒤로 가기 | 0. 종료 ]");
+			System.out.print("> ");
+
+			int select = Integer.parseInt(scanner.nextLine());
+			switch (select) {
+			case 1:
+				transactionController.findAll();
+				break;
+			case 2:
+				break;
+			case 3:
+				System.out.print("거래 번호 입력 > ");
+				int transactionId = Integer.parseInt(scanner.nextLine());
 				break;
 			case 9:
 				customerController.logout();

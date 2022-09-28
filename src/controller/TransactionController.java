@@ -29,15 +29,26 @@ public class TransactionController {
 		}
 	}
 	
+	public void findAll() {
+		try {
+			List<Transaction> transactions = transactionService.findAll();
+			SuccessView.printfindTransactionAll(transactions);
+		} catch (Exception e) {
+//			e.printStackTrace();
+			FailView.printErrorMessage(e);
+		}
+	}
+	
 	public void findById(String id) {
 		try {
+			Customer customer = null;
 			if (id == null) {
-				Customer customer = (Customer) session.getAttribute("loginUser");
+				customer = (Customer) session.getAttribute("loginUser");
 				if (customer == null) throw new DoNotLoginException("로그인 후 이용해주세요.");
 				id = customer.getId();
 			}
 			List<Transaction> transactions = transactionService.findById(id);
-			SuccessView.printTransactionsFindById(transactions);
+			SuccessView.printTransactionsFindById(customer, transactions);
 		} catch (Exception e) {
 			FailView.printErrorMessage(e);
 		}

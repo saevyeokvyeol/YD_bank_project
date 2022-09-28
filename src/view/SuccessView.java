@@ -154,8 +154,17 @@ public class SuccessView {
 		System.out.println("▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒");
 	}
 	
-	public static void printTransactionsFindById(List<Transaction> transactions) {
-		System.out.println("거래 내역");
+	public static void printfindTransactionAll(List<Transaction> transactions) {
+		System.out.println("< YD뱅크 전체 거래 내역: 총" + transactions.size() + " 건 >");
+		printTransactions(transactions);
+	}
+	
+	public static void printTransactionsFindById(Customer customer, List<Transaction> transactions) {
+		System.out.println("< " + customer.getName() + " 님의 거래 내역 >");
+		printTransactions(transactions);
+	}
+	
+	public static void printTransactions(List<Transaction> transactions) {
 		System.out.println("\t거래 종류\t거래자명\t출금 계좌\t입금 계좌\t거래 금액\t\t거래 일자");
 		
 		for (Transaction t : transactions) {
