@@ -5,6 +5,8 @@ import java.util.List;
 
 import dto.Account;
 import dto.AccountState;
+import exception.DiscrepancyException;
+import exception.NotExistRecodeException;
 
 public interface AccountService {
 	/**
@@ -15,10 +17,9 @@ public interface AccountService {
 	
 	/**
 	 * 계좌 상태 변경
-	 * @param: Account
-	 * @return: int(1일 경우 성공, 아닐 경우 실패)
+	 * @param: int accountId
 	 * */
-	public int updateAccountState(Account account) throws SQLException;
+	public void updateAccountState(int accountId) throws SQLException, NotExistRecodeException, DiscrepancyException;
 	
 	/**
 	 * 전체 계좌 검색
@@ -39,11 +40,4 @@ public interface AccountService {
 	 * @return: List<Account>
 	 * */
 	public List<Account> findById(String id, boolean state) throws SQLException;
-	
-	/**
-	 * 계좌 상태 아이디로 계좌 상태 검색
-	 * @param: int stateId
-	 * @return: AccountState
-	 * */
-	public AccountState findByStateId(int stateId) throws SQLException;
 }

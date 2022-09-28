@@ -61,4 +61,14 @@ public class AccountController {
 		}
 	}
 	
+	public void updateClose(int accountId) {
+		try {
+			accountService.updateAccountState(accountId);
+			SuccessView.printMessage(accountId + " 계좌가 해지되었습니다.");
+		} catch (Exception e) {
+			// e.printStackTrace();
+			FailView.printErrorMessage(e);
+		}
+	}
+	
 }

@@ -1,15 +1,20 @@
 package service;
 
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.List;
 
 import dao.AccountDao;
 import dao.AccountDaoImpl;
 import dto.Account;
-import dto.AccountState;
+import dto.Customer;
+import exception.DiscrepancyException;
+import exception.NotExistRecodeException;
+import session.Session;
 
 public class AccountServiceImpl implements AccountService {
 	private AccountDao accountDao = new AccountDaoImpl();
+	private Session session = Session.getInstance();
 
 	/**
 	 * 계좌 개설
@@ -23,13 +28,20 @@ public class AccountServiceImpl implements AccountService {
 
 	/**
 	 * 계좌 상태 변경
-	 * @param: Account
-	 * @return: int(1일 경우 성공, 아닐 경우 실패)
+	 * @param: int accountId
 	 * */
 	@Override
-	public int updateAccountState(Account account) throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
+	public void updateAccountState(int accountId) throws SQLException, NotExistRecodeException, DiscrepancyException {
+		Account account = accountDao.findByAccountid(accountId);
+		Customer customer = (Customer)session.getAttribute("loginUser");
+		
+		if (account == null) throw new NotExistRecodeException("올바르지 않은 계좌 정보입니다.");
+		else if (!customer.getId().equals("admin") && !customer.getId().equals(account.getId())) throw new DiscrepancyException("자신이 소유한 계좌만 해지할 수 있습니다.");
+		else if (account.getBalance() != 0) throw new DiscrepancyException("잔고가 있는 계좌는 해지할 수 없습니다.\n남은 잔고: " + new DecimalFormat("#,###").format(account.getBalance()));
+		else if (account.getStateId() == 2) throw new DiscrepancyException("이미 해지된 계좌입니다.");
+		
+		int result = accountDao.updateClose(account);
+		if (result != 1) throw new SQLException("계좌 해지에 오류가 발생했습니다.\n잠시 후 다시 시도해주세요.");
 	}
 
 	/**
@@ -63,16 +75,4 @@ public class AccountServiceImpl implements AccountService {
 		List<Account> accounts = accountDao.findById(id, state);
 		return accounts;
 	}
-
-	/**
-	 * 계좌 상태 아이디로 계좌 상태 검색
-	 * @param: int stateId
-	 * @return: AccountState
-	 * */
-	@Override
-	public AccountState findByStateId(int stateId) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

@@ -97,9 +97,24 @@ public class AccountDaoImpl implements AccountDao {
 	 * @return: int(1일 경우 성공, 아닐 경우 실패)
 	 * */
 	@Override
-	public int updateAccountState(Account account) throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
+	public int updateClose(Account account) throws SQLException {
+		Connection con = null;
+		PreparedStatement ps = null;
+		
+		String sql = profile.getProperty("account.updateClose");
+		int result = 0;
+				
+		try {
+			con = DbUtil.getConnection();
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, account.getAccountId());
+			
+			result = ps.executeUpdate();
+		} finally {
+			DbUtil.close(con, ps);
+		}
+		
+		return result;
 	}
 
 	/**
@@ -199,14 +214,28 @@ public class AccountDaoImpl implements AccountDao {
 		return accounts;
 	}
 
-	/**
-	 * 계좌 상태 아이디로 계좌 상태 검색
-	 * @param: int stateId
-	 * @return: AccountState
-	 * */
 	@Override
 	public AccountState findByStateId(int stateId) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		String sql = profile.getProperty("account.findByStateId");
+		AccountState accountState = null;
+		
+		try {
+			con = DbUtil.getConnection();
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, stateId);
+			
+			rs = ps.executeQuery();
+			
+			if (rs.next()) {
+				accountState = new AccountState(rs.getInt(1), rs.getString(2));
+			}
+		} finally {
+			DbUtil.close(con, ps, rs);
+		}
+		return accountState;
 	}
 }

@@ -40,12 +40,31 @@ public class AccountTest {
 		accountController.findById(true);
 	}
 	
+	public void updateClose() {
+		util.login(new Customer("tset", "tset"));
+		System.out.println("실패: 없는 계좌");
+		accountController.updateClose(1000);
+		System.out.println("\n실패: 아이디 불일치");
+		accountController.updateClose(10022);
+		System.out.println("\n실패: 잔고가 남은 계좌");
+		accountController.updateClose(10009);
+		System.out.println("\n실패: 이미 해지된 계좌");
+		accountController.updateClose(10020);
+		
+		int success = 10021;
+		System.out.println("\n성공");
+		accountController.updateClose(success);
+		
+		util.delete("update account set state_id = 1 where account_id = " + success);
+	}
+	
 	public static void main(String[] args) {
 		AccountTest test = new AccountTest();
 		
 //		test.insertTest();
 //		test.findByIdTest();
 //		test.findAllTest();
-		test.findByAccountIdTest();
+//		test.findByAccountIdTest();
+		test.updateClose();
 	}
 }

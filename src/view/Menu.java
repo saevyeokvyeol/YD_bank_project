@@ -65,7 +65,7 @@ public class Menu {
 	 * */
 	public void userMenu() {
 		while (run) {
-			System.out.println("\n[ 1. 거래하기 | 2. 내 정보 확인 | 3. 내 계좌 확인 | 4. 최근 거래 확인 | 4. 신규 계좌 생성 | 9. 로그아웃 | 0. 종료 ]");
+			System.out.println("\n[ 1. 거래하기 | 2. 내 정보 확인 | 3. 내 계좌 확인 | 4. 내 거래 내역 확인 | 5. 신규 계좌 생성 | 6. 내 계좌 해지 | 9. 로그아웃 | 0. 종료 ]");
 			System.out.print("> ");
 
 			int select = Integer.parseInt(scanner.nextLine());
@@ -81,7 +81,15 @@ public class Menu {
 				accountController.findById(true);
 				break;
 			case 4:
+				
+				break;
+			case 5:
 				accountController.insertAccount();
+				break;
+			case 6:
+				System.out.print("계좌 번호 입력 > ");
+				int accountId = Integer.parseInt(scanner.nextLine());
+				accountController.updateClose(accountId);
 				break;
 			case 9:
 				customerController.logout();
@@ -237,7 +245,7 @@ public class Menu {
 	 * */
 	public void adminAccountMenu() {
 		while (run) {
-			System.out.println("\n[ 1. 전체 계좌 보기 | 2. 계좌 검색 | 9. 뒤로 가기 | 0. 종료 ]");
+			System.out.println("\n[ 1. 전체 계좌 보기 | 2. 계좌 검색 | 3. 계좌 해지 처리 | 9. 뒤로 가기 | 0. 종료 ]");
 			System.out.print("> ");
 
 			int select = Integer.parseInt(scanner.nextLine());
@@ -249,6 +257,11 @@ public class Menu {
 				System.out.print("계좌 번호 입력 > ");
 				int accountId = Integer.parseInt(scanner.nextLine());
 				accountController.findByAccountId(accountId);
+				break;
+			case 3:
+				System.out.print("계좌 번호 입력 > ");
+				int accountId = Integer.parseInt(scanner.nextLine());
+				accountController.updateClose(accountId);
 				break;
 			case 9:
 				customerController.logout();
