@@ -45,11 +45,11 @@ public class TransactionTest {
 	
 	public static void main(String[] args) {
 		TransactionTest test = new TransactionTest();
-//		test.insertTransactionTest();
+		test.insertTransactionTest();
 //		test.findByIdTest();
 //		test.findAllTest();
 //		test.findByTransactionIdTest();
 //		test.findByTodayTest();
-		test.findByAccountIdTest();
+//		test.findByAccountIdTest();
 	}
 }

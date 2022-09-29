@@ -30,12 +30,12 @@ public class CustomerController {
 	
 	public void login(Customer customer) {
 		try {
-			if (customer.getId().equals("admin") && customer.getPassword().equals("admin")) {
+			Customer loginUser = customerService.login(customer);
+			session.setAttribute("loginUser", loginUser);
+			if (loginUser.getId().equals("admin") && loginUser.getPassword().equals("admin")) {
 				new Menu().adminMenu();
 			} else {
-				Customer loginUser = customerService.login(customer);
-				session.setAttribute("loginUser", loginUser);
-				new Menu().userMenu();				
+				new Menu().userMenu();
 			}
 		} catch (Exception e) {
 			FailView.printErrorMessage(e);

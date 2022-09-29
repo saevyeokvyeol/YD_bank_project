@@ -3,6 +3,7 @@ package view;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 import dto.Account;
 import dto.Customer;
@@ -217,5 +218,16 @@ public class SuccessView {
 				System.out.println(t.getTransactionDate());
 			}
 		}
+	}
+	
+	public static void printStatisticsSummary(Map<String, Long> map) {
+		System.out.println("\n< YD뱅크 전체 통계 요약 >");
+		System.out.println("전체 회원: " + map.get("totalCustomer") + "명");
+		System.out.println("오늘 가입 회원: " + map.get("todayCustomer") + "명");
+		System.out.println("\n전체 예치금: " + won.format(map.get("totalBalance")) + "원");
+		System.out.println("\n전체 거래 횟수: " + map.get("totalTransactionCount") + "건");
+		System.out.println("전체 거래액: " + won.format(map.get("totalTransactionAmount")) + "원");
+		System.out.println("오늘 거래 횟수: " + map.get("totalTransactionTodayCount") + "건");
+		System.out.println("오늘 거래액: " + won.format(map.get("totalTransactionTodayAmount")) + "원");
 	}
 }

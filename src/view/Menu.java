@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import controller.AccountController;
 import controller.CustomerController;
+import controller.StatisticsController;
 import controller.TransactionController;
 import dto.Customer;
 import dto.Transaction;
@@ -13,6 +14,7 @@ public class Menu {
 	private CustomerController customerController = new CustomerController();
 	private AccountController accountController = new AccountController();
 	private TransactionController transactionController = new TransactionController();
+	private StatisticsController statisticsController = new StatisticsController();
 	private boolean run = true;
 	
 	/**
@@ -171,8 +173,16 @@ public class Menu {
 			switch (select) {
 			case 1:
 				this.adminCustomerMenu();
+				break;
 			case 2:
 				this.adminAccountMenu();
+				break;
+			case 3:
+				this.adminTransactionMenu();
+				break;
+			case 4:
+				this.adminStatisticsMenu();
+				break;
 			case 9:
 				return;
 			case 0:
@@ -305,6 +315,36 @@ public class Menu {
 				System.out.print("거래 번호 입력 > ");
 				int transactionId = Integer.parseInt(scanner.nextLine());
 				transactionController.findByTransactionId(transactionId);
+				break;
+			case 9:
+				customerController.logout();
+				return;
+			case 0:
+				this.bankExit();
+			default:
+				System.out.println("올바르지 않은 메뉴를 선택하셨습니다.");
+			}
+		}
+	}
+	
+	/**
+	 * 통계 메뉴(관리자)
+	 * */
+	public void adminStatisticsMenu() {
+		while (run) {
+			System.out.println("\n[ 1. 전체 통계 보기 | 2. 회원 거래 횟수 통계 보기 | 3. 회원 거래 액수 통계 보기 | 9. 뒤로 가기 | 0. 종료 ]");
+			System.out.print("> ");
+
+			int select = Integer.parseInt(scanner.nextLine());
+			switch (select) {
+			case 1:
+				statisticsController.statisticsSummary();
+				break;
+			case 2:
+				
+				break;
+			case 3:
+				
 				break;
 			case 9:
 				customerController.logout();
