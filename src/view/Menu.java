@@ -341,10 +341,10 @@ public class Menu {
 				statisticsController.statisticsSummary();
 				break;
 			case 2:
-				
+				statisticsController.findTransactionCount();
 				break;
 			case 3:
-				
+				statisticsController.findTransactionCount();
 				break;
 			case 9:
 				customerController.logout();

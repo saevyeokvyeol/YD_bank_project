@@ -8,6 +8,7 @@ import java.util.Map;
 import dto.Account;
 import dto.Customer;
 import dto.Grade;
+import dto.Statistics;
 import dto.Transaction;
 
 public class SuccessView {
@@ -229,5 +230,31 @@ public class SuccessView {
 		System.out.println("전체 거래액: " + won.format(map.get("totalTransactionAmount")) + "원");
 		System.out.println("오늘 거래 횟수: " + map.get("totalTransactionTodayCount") + "건");
 		System.out.println("오늘 거래액: " + won.format(map.get("totalTransactionTodayAmount")) + "원");
+	}
+	
+	public static void printTransactionCount(List<Statistics> statistics) {
+		System.out.println("\n< YD뱅크 회원 거래 횟수 통계 >");
+		if (statistics.size() == 0) {
+			System.out.println("거래 내역이 존재하지 않아 통계를 가져올 수 없습니다.");
+		} else {
+			int score = 0;
+			System.out.println("\t아이디\t거래자명\t등급\t\t가입일\t\t\t거래 횟수");
+			for (Statistics s : statistics) {
+				System.out.println(++score + "\t" + s.getCustomer().getId() + "\t" + s.getCustomer().getName() + "\t\t" + s.getCustomer().getGrade().getGradeName() + "\t" + s.getCustomer().getSignupDate() + "\t" + s.getValue() + "건");
+			}
+		}
+	}
+	
+	public static void printTransactionAmount(List<Statistics> statistics) {
+		System.out.println("\n< YD뱅크 회원 거래 액수 통계 >");
+		if (statistics.size() == 0) {
+			System.out.println("거래 내역이 존재하지 않아 통계를 가져올 수 없습니다.");
+		} else {
+			int score = 0;
+			System.out.println("\t아이디\t거래자명\t등급\t\t가입일\t\t\t거래액");
+			for (Statistics s : statistics) {
+				System.out.println(++score + "\t" + s.getCustomer().getId() + "\t" + s.getCustomer().getName() + "\t\t" + s.getCustomer().getGrade().getGradeName() + "\t" + s.getCustomer().getSignupDate() + "\t" + won.format(s.getValue()) + "원");
+			}
+		}
 	}
 }

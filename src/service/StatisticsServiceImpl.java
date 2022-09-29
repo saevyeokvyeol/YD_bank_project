@@ -44,8 +44,7 @@ public class StatisticsServiceImpl implements StatisticsService {
 	 * */
 	@Override
 	public List<Statistics> findTransactionCount() throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		return statisticsDao.findTransactionCount();
 	}
 
 	/**
@@ -54,8 +53,7 @@ public class StatisticsServiceImpl implements StatisticsService {
 	 * */
 	@Override
 	public List<Statistics> findTransactionAmount() throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		return statisticsDao.findTransactionAmount();
 	}
 
 }

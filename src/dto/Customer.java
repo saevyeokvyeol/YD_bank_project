@@ -29,6 +29,13 @@ public class Customer {
 		this.tel = tel;
 	}
 
+	public Customer(String id, String name, int gradeId, String signupDate) {
+		this.id = id;
+		this.name = name;
+		this.gradeId = gradeId;
+		this.signupDate = signupDate;
+	}
+
 	public Customer(String id, String password, String name, String tel, int gradeId, String signupDate, String updateDate, Long totalBalance) {
 		this(id, password, name, tel);
 		this.gradeId = gradeId;

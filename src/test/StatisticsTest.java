@@ -10,9 +10,19 @@ public class StatisticsTest {
 		controller.statisticsSummary();
 	}
 	
+	public void statisticsCountTest() {
+		controller.findTransactionCount();
+	}
+	
+	public void statisticsAmountTest() {
+		controller.findTransactionAmount();
+	}
+	
 	public static void main(String[] args) {
 		StatisticsTest test = new StatisticsTest();
 
-		test.statisticsSummaryTest();
+//		test.statisticsSummaryTest();
+		test.statisticsCountTest();
+		test.statisticsAmountTest();
 	}
 }
