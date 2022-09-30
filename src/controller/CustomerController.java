@@ -35,6 +35,7 @@ public class CustomerController {
 			if (loginUser.getId().equals("admin") && loginUser.getPassword().equals("admin")) {
 				new Menu().adminMenu();
 			} else {
+				SuccessView.printMessage("< YD은행에 오신 것을 환영합니다, " + loginUser.getName() + "님 >");
 				new Menu().userMenu();
 			}
 		} catch (Exception e) {
@@ -44,6 +45,7 @@ public class CustomerController {
 	}
 	
 	public void logout() {
+		SuccessView.printMessage("< " + ((Customer)session.getAttribute("loginUser")).getName() + "님은 로그아웃 되었습니다 >");
 		session.removeAttribute("loginUser");
 	}
 	

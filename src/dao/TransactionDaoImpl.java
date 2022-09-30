@@ -45,8 +45,7 @@ public class TransactionDaoImpl implements TransactionDao {
 			if (transaction.getTransactionClassId() != 1) {
 				withdrawAccount = accountDao.findByAccountid(transaction.getWithdrawAccountId());
 				if (withdrawAccount == null || !withdrawAccount.getId().equals(transaction.getCustomer().getId())) {
-					System.out.println(withdrawAccount.getId() + ", " + transaction.getCustomer().getId());
-					throw new SQLException("출금할 계좌 번호가 잘못되었습니다. 다시 확인해주세요.");
+					throw new SQLException("출금할 계좌 번호가 잘못되었습니다.\n다시 확인해주세요.");
 				} else if (transaction.getTransactionAmount() > withdrawAccount.getBalance()) {
 					throw new SQLException("잔액이 부족해 출금 처리가 완료되지 않았습니다.");
 				}

@@ -17,47 +17,104 @@ public class Menu {
 	private StatisticsController statisticsController = new StatisticsController();
 	private boolean run = true;
 	
+	private final String ID = "^[0-9a-zA-Z]*$";
+	private final String PASSWORD = "^[0-9]*$";
+	private final String NAME = "^[가-힣]*$";
+	private final String TEL = "^[0-9]*$";
+	
 	/**
 	 * 메인 메뉴
 	 * */
 	public void mainMenu() {
 		while(run) {
-			System.out.println("\n[ 1. 로그인 | 2. 회원가입 | 0. 종료 ]");
+			try {
+				System.out.println("\n[ 1. 로그인 | 2. 회원가입 | 0. 종료 ]");
+				
+				System.out.print("> ");
+				
+				int select = Integer.parseInt(scanner.nextLine());
+				
+				switch (select) {
+				case 1:
+					System.out.print("\n아이디 입력 > ");
+					String loginId = scanner.nextLine();
+					
+					System.out.print("비밀번호 입력 > ");
+					String loginPwd = scanner.nextLine();
+					customerController.login(new Customer(loginId, loginPwd));
+					break;
+				case 2:
+					String id = null;
+					while (true) {
+						System.out.print("\n아이디 입력 > ");
+						id = scanner.nextLine();
+						
+						if (id.length() > 6) {
+							System.out.println("아이디는 6글자 이내로 입력해주세요.");
+						} else if (!id.matches(ID)) {
+							System.out.println("아이디는 알파벳 소문자와 숫자만 입력해주세요.");
+						} else {
+							break;
+						}
+					}
 
-			System.out.print("> ");
-			
-			int select = Integer.parseInt(scanner.nextLine());
-			
-			switch (select) {
-			case 1:
-				System.out.print("\n아이디 입력 > ");
-				String loginId = scanner.nextLine();
+					String password = null;
+					while (true) {
+						System.out.print("비밀번호 입력 > ");
+						password = scanner.nextLine();
+						
+						if (password.length() > 4 || !password.matches(PASSWORD)) {
+							System.out.println("비밀번호는 숫자 네 글자로 입력해주세요.\n");
+						} else {
+							break;
+						}
+					}
 
-				System.out.print("비밀번호 입력 > ");
-				String loginPwd = scanner.nextLine();
-				customerController.login(new Customer(loginId, loginPwd));
-				break;
-			case 2:
-				System.out.print("\n아이디 입력 > ");
-				String id = scanner.nextLine();
-				
-				System.out.print("비밀번호 입력 > ");
-				String password = scanner.nextLine();
-				
-				System.out.print("비밀번호 확인 > ");
-				String checkPwd = scanner.nextLine();
-				
-				System.out.print("이름 입력 > ");
-				String name = scanner.nextLine();
-				
-				System.out.print("전화번호 입력 > ");
-				String tel = scanner.nextLine();
-				customerController.signup(new Customer(id, password, name, tel), checkPwd);
-				break;
-			case 0:
-				this.bankExit();
-			default:
-				System.out.println("올바르지 않은 메뉴를 선택하셨습니다.");
+					String checkPwd = null;
+					while (true) {
+						System.out.print("비밀번호 확인 > ");
+						checkPwd = scanner.nextLine();
+						
+						if (!password.equals(checkPwd)) {
+							System.out.println("비밀번호와 비밀번호 확인이 다릅니다.\n");
+						} else {
+							break;
+						}
+					}
+
+					String name = null;
+					while (true) {
+						System.out.print("이름 입력 > ");
+						name = scanner.nextLine();
+						
+						if (!name.matches(NAME)) {
+							System.out.println("이름은 한글만 입력해주세요.\n");
+						} else {
+							break;
+						}
+					}
+
+					String tel = null;
+					while (true) {
+						System.out.print("전화번호 입력 > ");
+						tel = scanner.nextLine();
+						
+						if (!tel.matches(TEL) || tel.length() == 11 == false) {
+							System.out.println("전화번호는 -없이 숫자 11자리로 입력해주세요.\n");
+						} else {
+							break;
+						}
+					}
+					
+					customerController.signup(new Customer(id, password, name, tel), checkPwd);
+					break;
+				case 0:
+					this.bankExit();
+				default:
+					System.out.println("올바르지 않은 메뉴를 선택하셨습니다.");
+				}
+			} catch (NumberFormatException e) {
+				System.out.println("숫자만 입력해주세요.");
 			}
 		}
 	}
@@ -67,39 +124,43 @@ public class Menu {
 	 * */
 	public void userMenu() {
 		while (run) {
-			System.out.println("\n[ 1. 거래하기 | 2. 내 정보 확인 | 3. 내 계좌 확인 | 4. 내 거래 내역 확인 | 5. 신규 계좌 생성 | 6. 내 계좌 해지 | 9. 로그아웃 | 0. 종료 ]");
-			System.out.print("> ");
-
-			int select = Integer.parseInt(scanner.nextLine());
-			
-			switch (select) {
-			case 1:
-				transactionMenu();
-				break;
-			case 2:
-				customerController.customerInfo();
-				break;
-			case 3:
-				accountController.findById(true);
-				break;
-			case 4:
+			try {
+				System.out.println("\n[ 1. 거래하기 | 2. 내 정보 확인 | 3. 내 계좌 확인 | 4. 내 거래 내역 확인 | 5. 신규 계좌 생성 | 6. 내 계좌 해지 | 9. 로그아웃 | 0. 종료 ]");
+				System.out.print("> ");
+	
+				int select = Integer.parseInt(scanner.nextLine());
 				
-				break;
-			case 5:
-				accountController.insertAccount();
-				break;
-			case 6:
-				System.out.print("계좌 번호 입력 > ");
-				int accountId = Integer.parseInt(scanner.nextLine());
-				accountController.updateClose(accountId);
-				break;
-			case 9:
-				customerController.logout();
-				return;
-			case 0:
-				this.bankExit();
-			default:
-				System.out.println("올바르지 않은 메뉴를 선택하셨습니다.");
+				switch (select) {
+				case 1:
+					transactionMenu();
+					break;
+				case 2:
+					customerController.customerInfo();
+					break;
+				case 3:
+					accountController.findById(true);
+					break;
+				case 4:
+					transactionController.findById(null);
+					break;
+				case 5:
+					accountController.insertAccount();
+					break;
+				case 6:
+					System.out.print("계좌 번호 입력 > ");
+					int accountId = Integer.parseInt(scanner.nextLine());
+					accountController.updateClose(accountId);
+					break;
+				case 9:
+					customerController.logout();
+					return;
+				case 0:
+					this.bankExit();
+				default:
+					System.out.println("올바르지 않은 메뉴를 선택하셨습니다.");
+				}
+			} catch (NumberFormatException e) {
+				System.out.println("숫자만 입력해주세요.");
 			}
 		}
 	}
@@ -109,54 +170,58 @@ public class Menu {
 	 * */
 	public void transactionMenu() {
 		while (run) {
-			System.out.println("\n[ 1. 현금 입금 | 2. 현금 출금 | 3. 계좌 이체 | 9. 뒤로 가기 | 0. 종료 ]");
-			System.out.print("> ");
-
-			int select = Integer.parseInt(scanner.nextLine());
-			int depositAccount = 0;
-			int withdrawAccount = 0;
-			Long amount = 0L;
-			switch (select) {
-			case 1:
-				System.out.println("입금할 계좌 번호를 입력하세요.");
+			try {
+				System.out.println("\n[ 1. 현금 입금 | 2. 현금 출금 | 3. 계좌 이체 | 9. 뒤로 가기 | 0. 종료 ]");
 				System.out.print("> ");
-				depositAccount = Integer.parseInt(scanner.nextLine());
-
-				System.out.println("입금할 액수를 입력하세요.");
-				System.out.print("> ");
-				amount = (long) Integer.parseInt(scanner.nextLine());
-				transactionController.insertTransaction(new Transaction(depositAccount, null, 1, amount));
-				return;
-			case 2:
-				System.out.println("출금할 계좌 번호를 입력하세요.");
-				System.out.print("> ");
-				withdrawAccount = Integer.parseInt(scanner.nextLine());
-
-				System.out.println("출금할 액수를 입력하세요.");
-				System.out.print("> ");
-				amount = (long) Integer.parseInt(scanner.nextLine());
-				transactionController.insertTransaction(new Transaction(null, withdrawAccount, 2, amount));
-				return;
-			case 3:
-				System.out.println("입금할 계좌 번호를 입력하세요.");
-				System.out.print("> ");
-				depositAccount = Integer.parseInt(scanner.nextLine());
-				
-				System.out.println("출금할 계좌 번호를 입력하세요.");
-				System.out.print("> ");
-				withdrawAccount = Integer.parseInt(scanner.nextLine());
-
-				System.out.println("이체할 액수를 입력하세요.");
-				System.out.print("> ");
-				amount = (long) Integer.parseInt(scanner.nextLine());
-				transactionController.insertTransaction(new Transaction(depositAccount, withdrawAccount, 3, amount));
-				return;
-			case 9:
-				return;
-			case 0:
-				this.bankExit();
-			default:
-				System.out.println("올바르지 않은 메뉴를 선택하셨습니다.");
+	
+				int select = Integer.parseInt(scanner.nextLine());
+				int depositAccount = 0;
+				int withdrawAccount = 0;
+				Long amount = 0L;
+				switch (select) {
+				case 1:
+					System.out.println("입금할 계좌 번호를 입력하세요.");
+					System.out.print("> ");
+					depositAccount = Integer.parseInt(scanner.nextLine());
+	
+					System.out.println("입금할 액수를 입력하세요.");
+					System.out.print("> ");
+					amount = (long) Integer.parseInt(scanner.nextLine());
+					transactionController.insertTransaction(new Transaction(depositAccount, null, 1, amount));
+					return;
+				case 2:
+					System.out.println("출금할 계좌 번호를 입력하세요.");
+					System.out.print("> ");
+					withdrawAccount = Integer.parseInt(scanner.nextLine());
+	
+					System.out.println("출금할 액수를 입력하세요.");
+					System.out.print("> ");
+					amount = (long) Integer.parseInt(scanner.nextLine());
+					transactionController.insertTransaction(new Transaction(null, withdrawAccount, 2, amount));
+					return;
+				case 3:
+					System.out.println("입금할 계좌 번호를 입력하세요.");
+					System.out.print("> ");
+					depositAccount = Integer.parseInt(scanner.nextLine());
+					
+					System.out.println("출금할 계좌 번호를 입력하세요.");
+					System.out.print("> ");
+					withdrawAccount = Integer.parseInt(scanner.nextLine());
+	
+					System.out.println("이체할 액수를 입력하세요.");
+					System.out.print("> ");
+					amount = (long) Integer.parseInt(scanner.nextLine());
+					transactionController.insertTransaction(new Transaction(depositAccount, withdrawAccount, 3, amount));
+					return;
+				case 9:
+					return;
+				case 0:
+					this.bankExit();
+				default:
+					System.out.println("올바르지 않은 메뉴를 선택하셨습니다.");
+				}
+			} catch (NumberFormatException e) {
+				System.out.println("숫자만 입력해주세요.");
 			}
 		}
 	}
@@ -166,29 +231,34 @@ public class Menu {
 	 * */
 	public void adminMenu() {
 		while (run) {
-			System.out.println("\n[ 1. 회원 관리 | 2. 계좌 관리 | 3. 거래 관리 | 4. 통계 보기 | 9. 로그아웃 | 0. 종료 ]");
-			System.out.print("> ");
-
-			int select = Integer.parseInt(scanner.nextLine());
-			switch (select) {
-			case 1:
-				this.adminCustomerMenu();
-				break;
-			case 2:
-				this.adminAccountMenu();
-				break;
-			case 3:
-				this.adminTransactionMenu();
-				break;
-			case 4:
-				this.adminStatisticsMenu();
-				break;
-			case 9:
-				return;
-			case 0:
-				this.bankExit();
-			default:
-				System.out.println("올바르지 않은 메뉴를 선택하셨습니다.");
+			try {
+				System.out.println("\n[ 1. 회원 관리 | 2. 계좌 관리 | 3. 거래 관리 | 4. 통계 보기 | 9. 로그아웃 | 0. 종료 ]");
+				System.out.print("> ");
+	
+				int select = Integer.parseInt(scanner.nextLine());
+				switch (select) {
+				case 1:
+					this.adminCustomerMenu();
+					break;
+				case 2:
+					this.adminAccountMenu();
+					break;
+				case 3:
+					this.adminTransactionMenu();
+					break;
+				case 4:
+					this.adminStatisticsMenu();
+					break;
+				case 9:
+					customerController.logout();
+					return;
+				case 0:
+					this.bankExit();
+				default:
+					System.out.println("올바르지 않은 메뉴를 선택하셨습니다.");
+				}
+			} catch (NumberFormatException e) {
+				System.out.println("숫자만 입력해주세요.");
 			}
 		}
 	}
@@ -198,30 +268,33 @@ public class Menu {
 	 * */
 	public void adminCustomerMenu() {
 		while (run) {
-			System.out.println("\n[ 1. 전체 회원 보기 | 2. 등급별 회원 보기 | 3. 회원 검색 | 9. 뒤로 가기 | 0. 종료 ]");
-			System.out.print("> ");
-
-			int select = Integer.parseInt(scanner.nextLine());
-			switch (select) {
-			case 1:
-				customerController.findAll();
-				break;
-			case 2:
-				System.out.println("[ 1. General | 2. Family | 3. Royal | 4. Honor | 5. Prestige ]");
+			try {
+				System.out.println("\n[ 1. 전체 회원 보기 | 2. 등급별 회원 보기 | 3. 회원 검색 | 9. 뒤로 가기 | 0. 종료 ]");
 				System.out.print("> ");
-				int gradeId = Integer.parseInt(scanner.nextLine());
-				customerController.findByGrade(gradeId);
-				break;
-			case 3:
-				this.adminCustomerSearchMenu();
-				break;
-			case 9:
-				customerController.logout();
-				return;
-			case 0:
-				this.bankExit();
-			default:
-				System.out.println("올바르지 않은 메뉴를 선택하셨습니다.");
+	
+				int select = Integer.parseInt(scanner.nextLine());
+				switch (select) {
+				case 1:
+					customerController.findAll();
+					break;
+				case 2:
+					System.out.println("[ 1. General | 2. Family | 3. Royal | 4. Honor | 5. Prestige ]");
+					System.out.print("> ");
+					int gradeId = Integer.parseInt(scanner.nextLine());
+					customerController.findByGrade(gradeId);
+					break;
+				case 3:
+					this.adminCustomerSearchMenu();
+					break;
+				case 9:
+					return;
+				case 0:
+					this.bankExit();
+				default:
+					System.out.println("올바르지 않은 메뉴를 선택하셨습니다.");
+				}
+			} catch (NumberFormatException e) {
+				System.out.println("숫자만 입력해주세요.");
 			}
 		}
 	}
@@ -231,21 +304,25 @@ public class Menu {
 	 * */
 	public void adminCustomerSearchMenu() {
 		while (run) {
-			System.out.println("\n[ 1. 아이디로 검색 | 2. 이름으로 검색 | 3. 전화번호로 검색 | 4. 계좌 번호로 검색 | 9. 뒤로 가기 | 0. 종료]");
-			System.out.print("> ");
-
-			int select = Integer.parseInt(scanner.nextLine());
-			if (select > 0 && select < 5) {
-				System.out.print("검색 키워드 입력 > ");
-				String keyword = scanner.nextLine();
-				customerController.findByKeyword(select, keyword);
-				return;
-			} else if (select == 9) {
-				return;
-			} else if (select == 0) {
-				this.bankExit();
-			} else {
-				System.out.println("올바르지 않은 메뉴를 선택하셨습니다.");
+			try {
+				System.out.println("\n[ 1. 아이디로 검색 | 2. 이름으로 검색 | 3. 전화번호로 검색 | 4. 계좌 번호로 검색 | 9. 뒤로 가기 | 0. 종료]");
+				System.out.print("> ");
+	
+				int select = Integer.parseInt(scanner.nextLine());
+				if (select > 0 && select < 5) {
+					System.out.print("검색 키워드 입력 > ");
+					String keyword = scanner.nextLine();
+					customerController.findByKeyword(select, keyword);
+					return;
+				} else if (select == 9) {
+					return;
+				} else if (select == 0) {
+					this.bankExit();
+				} else {
+					System.out.println("올바르지 않은 메뉴를 선택하셨습니다.");
+				}
+			} catch (NumberFormatException e) {
+				System.out.println("숫자만 입력해주세요.");
 			}
 		}
 	}
@@ -255,32 +332,35 @@ public class Menu {
 	 * */
 	public void adminAccountMenu() {
 		while (run) {
-			System.out.println("\n[ 1. 전체 계좌 보기 | 2. 계좌 검색 | 3. 계좌 해지 처리 | 9. 뒤로 가기 | 0. 종료 ]");
-			System.out.print("> ");
-
-			int select = Integer.parseInt(scanner.nextLine());
-			int accountId = 0;
-			switch (select) {
-			case 1:
-				accountController.findAll();
-				break;
-			case 2:
-				System.out.print("계좌 번호 입력 > ");
-				accountId = Integer.parseInt(scanner.nextLine());
-				accountController.findByAccountId(accountId);
-				break;
-			case 3:
-				System.out.print("계좌 번호 입력 > ");
-				accountId = Integer.parseInt(scanner.nextLine());
-				accountController.updateClose(accountId);
-				break;
-			case 9:
-				customerController.logout();
-				return;
-			case 0:
-				this.bankExit();
-			default:
-				System.out.println("올바르지 않은 메뉴를 선택하셨습니다.");
+			try {
+				System.out.println("\n[ 1. 전체 계좌 보기 | 2. 계좌 검색 | 3. 계좌 해지 처리 | 9. 뒤로 가기 | 0. 종료 ]");
+				System.out.print("> ");
+	
+				int select = Integer.parseInt(scanner.nextLine());
+				int accountId = 0;
+				switch (select) {
+				case 1:
+					accountController.findAll();
+					break;
+				case 2:
+					System.out.print("계좌 번호 입력 > ");
+					accountId = Integer.parseInt(scanner.nextLine());
+					accountController.findByAccountId(accountId);
+					break;
+				case 3:
+					System.out.print("계좌 번호 입력 > ");
+					accountId = Integer.parseInt(scanner.nextLine());
+					accountController.updateClose(accountId);
+					break;
+				case 9:
+					return;
+				case 0:
+					this.bankExit();
+				default:
+					System.out.println("올바르지 않은 메뉴를 선택하셨습니다.");
+				}
+			} catch (NumberFormatException e) {
+				System.out.println("숫자만 입력해주세요.");
 			}
 		}
 	}
@@ -290,39 +370,42 @@ public class Menu {
 	 * */
 	public void adminTransactionMenu() {
 		while (run) {
-			System.out.println("\n[ 1. 전체 거래 보기 | 2. 일일 거래 보기 | 3. 회원별 거래 보기 | 4. 계좌별 거래 보기 | 5. 거래 검색 | 9. 뒤로 가기 | 0. 종료 ]");
-			System.out.print("> ");
-
-			int select = Integer.parseInt(scanner.nextLine());
-			switch (select) {
-			case 1:
-				transactionController.findAll();
-				break;
-			case 2:
-				transactionController.findByToday();
-				break;
-			case 3:
-				System.out.println("아이디 입력 > ");
-				String id = scanner.nextLine();
-				transactionController.findById(id);
-				break;
-			case 4:
-				System.out.println("아이디 입력 > ");
-				int accountId = Integer.parseInt(scanner.nextLine());
-				transactionController.findByAccountId(accountId);
-				break;
-			case 5:
-				System.out.print("거래 번호 입력 > ");
-				int transactionId = Integer.parseInt(scanner.nextLine());
-				transactionController.findByTransactionId(transactionId);
-				break;
-			case 9:
-				customerController.logout();
-				return;
-			case 0:
-				this.bankExit();
-			default:
-				System.out.println("올바르지 않은 메뉴를 선택하셨습니다.");
+			try {
+				System.out.println("\n[ 1. 전체 거래 보기 | 2. 일일 거래 보기 | 3. 회원별 거래 보기 | 4. 계좌별 거래 보기 | 5. 거래 검색 | 9. 뒤로 가기 | 0. 종료 ]");
+				System.out.print("> ");
+	
+				int select = Integer.parseInt(scanner.nextLine());
+				switch (select) {
+				case 1:
+					transactionController.findAll();
+					break;
+				case 2:
+					transactionController.findByToday();
+					break;
+				case 3:
+					System.out.print("아이디 입력 > ");
+					String id = scanner.nextLine();
+					transactionController.findById(id);
+					break;
+				case 4:
+					System.out.print("계좌 입력 > ");
+					int accountId = Integer.parseInt(scanner.nextLine());
+					transactionController.findByAccountId(accountId);
+					break;
+				case 5:
+					System.out.print("거래 번호 입력 > ");
+					int transactionId = Integer.parseInt(scanner.nextLine());
+					transactionController.findByTransactionId(transactionId);
+					break;
+				case 9:
+					return;
+				case 0:
+					this.bankExit();
+				default:
+					System.out.println("올바르지 않은 메뉴를 선택하셨습니다.");
+				}
+			} catch (NumberFormatException e) {
+				System.out.println("숫자만 입력해주세요.");
 			}
 		}
 	}
@@ -332,27 +415,30 @@ public class Menu {
 	 * */
 	public void adminStatisticsMenu() {
 		while (run) {
-			System.out.println("\n[ 1. 전체 통계 보기 | 2. 회원 거래 횟수 통계 보기 | 3. 회원 거래 액수 통계 보기 | 9. 뒤로 가기 | 0. 종료 ]");
-			System.out.print("> ");
-
-			int select = Integer.parseInt(scanner.nextLine());
-			switch (select) {
-			case 1:
-				statisticsController.statisticsSummary();
-				break;
-			case 2:
-				statisticsController.findTransactionCount();
-				break;
-			case 3:
-				statisticsController.findTransactionCount();
-				break;
-			case 9:
-				customerController.logout();
-				return;
-			case 0:
-				this.bankExit();
-			default:
-				System.out.println("올바르지 않은 메뉴를 선택하셨습니다.");
+			try {
+				System.out.println("\n[ 1. 전체 통계 보기 | 2. 회원 거래 횟수 통계 보기 | 3. 회원 거래 액수 통계 보기 | 9. 뒤로 가기 | 0. 종료 ]");
+				System.out.print("> ");
+	
+				int select = Integer.parseInt(scanner.nextLine());
+				switch (select) {
+				case 1:
+					statisticsController.statisticsSummary();
+					break;
+				case 2:
+					statisticsController.findTransactionCount();
+					break;
+				case 3:
+					statisticsController.findTransactionAmount();
+					break;
+				case 9:
+					return;
+				case 0:
+					this.bankExit();
+				default:
+					System.out.println("올바르지 않은 메뉴를 선택하셨습니다.");
+				}
+			} catch (NumberFormatException e) {
+				System.out.println("숫자만 입력해주세요.");
 			}
 		}
 	}

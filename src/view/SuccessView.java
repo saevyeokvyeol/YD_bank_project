@@ -97,17 +97,19 @@ public class SuccessView {
 	
 	public static void printFindAccountByAccountId(int accountId, Account account) {
 		
-		System.out.print("\n< 계좌 번호 '" + accountId + "' 검색 결과: ");
+		System.out.print("\n< 계좌 번호 '" + accountId + "' 검색 결과");
 		if (account == null) {
-			System.out.println("입력한 계좌 번호와 일치하는 정보가 존재하지 않습니다 >");
+			System.out.println(": 입력한 계좌 번호와 일치하는 정보가 존재하지 않습니다 >");
 		} else {
-			System.out.println("총 " + 1 + "명>");
-			System.out.println("아이디\t계좌 번호\t잔액\t\t\t개설일\t\t최근 거래일\t계좌 상태");
+			System.out.println(" >");
+			System.out.println("아이디\t계좌 번호\t잔액\t\t\t개설일\t\t최근 거래일");
 			System.out.print(account.getId() + "\t" + account.getAccountId() + "\t\t" + won.format(account.getBalance()) + "원\t");
 			if (account.getBalance() <= 10000000000L) {
 				System.out.print("\t");
 			}
-			System.out.println(getDate(account.getOpenDate()) + "\t" + getDate(account.getUpdateDate()) + "\t");
+			System.out.print(getDate(account.getOpenDate()) + "\t" + getDate(account.getUpdateDate()));
+			if (account.getStateId() == 2) System.out.println("\t해지");
+			else System.out.println();
 		}				
 	}
 	
@@ -124,11 +126,14 @@ public class SuccessView {
 			System.out.println("아이디\t계좌 번호\t잔액\t\t\t개설일\t\t최근 거래일");
 			for (Account account : accounts) {
 				System.out.print(account.getId() + "\t" + account.getAccountId() + "\t\t" + won.format(account.getBalance()) + "원\t");
-				if (account.getBalance() <= 10000000000L) {
+				if (account.getBalance() < 10000) {
+					System.out.print("\t\t");
+				} else if (account.getBalance() < 10000000000L) {
 					System.out.print("\t");
 				}
-				System.out.println(getDate(account.getOpenDate()) + "\t" + getDate(account.getUpdateDate()));
+				System.out.print(getDate(account.getOpenDate()) + "\t" + getDate(account.getUpdateDate()));
 				if (account.getStateId() == 2) System.out.println("\t해지");
+				else System.out.println();
 			}
 		}
 	}
@@ -240,7 +245,9 @@ public class SuccessView {
 			int score = 0;
 			System.out.println("\t아이디\t거래자명\t등급\t\t가입일\t\t\t거래 횟수");
 			for (Statistics s : statistics) {
-				System.out.println(++score + "\t" + s.getCustomer().getId() + "\t" + s.getCustomer().getName() + "\t\t" + s.getCustomer().getGrade().getGradeName() + "\t" + s.getCustomer().getSignupDate() + "\t" + s.getValue() + "건");
+				System.out.print(++score + "\t" + s.getCustomer().getId() + "\t" + s.getCustomer().getName() + "\t\t" + s.getCustomer().getGrade().getGradeName() + "\t");
+				if (s.getCustomer().getGrade().getGradeName().length() < 8) System.out.print("\t"); 
+				System.out.println(s.getCustomer().getSignupDate() + "\t" + s.getValue() + "건");
 			}
 		}
 	}
@@ -253,7 +260,9 @@ public class SuccessView {
 			int score = 0;
 			System.out.println("\t아이디\t거래자명\t등급\t\t가입일\t\t\t거래액");
 			for (Statistics s : statistics) {
-				System.out.println(++score + "\t" + s.getCustomer().getId() + "\t" + s.getCustomer().getName() + "\t\t" + s.getCustomer().getGrade().getGradeName() + "\t" + s.getCustomer().getSignupDate() + "\t" + won.format(s.getValue()) + "원");
+				System.out.print(++score + "\t" + s.getCustomer().getId() + "\t" + s.getCustomer().getName() + "\t\t" + s.getCustomer().getGrade().getGradeName() + "\t");
+				if (s.getCustomer().getGrade().getGradeName().length() < 8) System.out.print("\t"); 
+				System.out.println(s.getCustomer().getSignupDate() + "\t" + won.format(s.getValue()) + "원");
 			}
 		}
 	}
